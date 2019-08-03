@@ -32,7 +32,7 @@ date_format = "Jan 2006"
   company_url = "http://leadinnovation.co.th/"
   location = "Bangkok"
   date_start = "2017-06-01"
-  date_end = "2016-12-01"
+  date_end = "2018-12-01"
   description = """Lead front-end mobile banking projects with Angular & Ionic"""
 
 +++
