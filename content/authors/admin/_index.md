@@ -18,7 +18,7 @@ organizations:
   url: "https://7peakssoftware.com/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: Angular & Web enthusiast who passionating front-end architecture
 
 interests:
 - Angular
@@ -60,9 +60,9 @@ email: ""
   
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.  
-user_groups:
-- Researchers
-- Visitors
+# user_groups:
+# - Researchers
+# - Visitors
 ---
 
 Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise softwares such as bank and energy companies. He contribute open source project namely who-use-angular-in-thailand. He is also Angular Thailand speaker and organizer.
