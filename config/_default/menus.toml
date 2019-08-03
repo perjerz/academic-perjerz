@@ -10,7 +10,7 @@
 
 [[main]]
   name = "Skills"
-  url = "#skill"
+  url = "#skills"
   weight = 20
 
 [[main]]
@@ -19,7 +19,7 @@
   weight = 30
 
 [[main]]
-  name = "Idol"
+  name = "Idols"
   url = "#people"
   weight = 40
 
