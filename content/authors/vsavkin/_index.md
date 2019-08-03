@@ -38,13 +38,13 @@ interests:
 social:
 - icon: twitter
   icon_pack: fab
-  link: https://twitter.com/andrestaltz
+  link: https://twitter.com/victorsavkin
 - icon: github
   icon_pack: fab
-  link: https://github.com/staltz
-- icon: link
-  icon_pack: fas
-  link: https://staltz.com/
+  link: https://github.com/vsavkin
+- icon: medium
+  icon_pack: fab
+  link: https://vsavkin.com/
 
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.  
