@@ -1,5 +1,5 @@
 ---
-title: Angular Developers Thailand Meetup 
+title: Angular Developers Thailand Meetup January 2018
 summary: Organize Angular meetup
 tags:
 - Angular
