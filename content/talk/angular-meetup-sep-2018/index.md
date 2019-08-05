@@ -3,7 +3,7 @@ title: Start to write Test (Side) Effect
 event: Angular Meetup September 2018
 event_url: https://www.facebook.com/events/238868826802487/
 location: Bangkok, Thailand
-summary: 
+summary: An overview of RxJS, NgRx, and Marble Diagram.
 abstract: 
 
 # Talk start and end times.
@@ -54,5 +54,7 @@ projects:
 # Enable math on this page?
 math: true
 ---
+
+[Facebook Video](https://www.facebook.com/tonmanna/videos/2136754663004504)
 
 {{< gdocs src="https://docs.google.com/presentation/d/e/2PACX-1vQKZ0eb8xFt4STGKkYRgZHjgZuEXu85ENp_LJtcVe6TU94dsAMjkuxQ8hQX3png3nCZCori-MbGNGlG/embed?start=false&loop=false" >}}

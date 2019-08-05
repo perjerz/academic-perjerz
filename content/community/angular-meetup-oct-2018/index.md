@@ -13,3 +13,4 @@ image:
   caption: Photo by Siwat
   focal_point: Smart
 ---
+https://www.facebook.com/oddsteam/videos/1032265250267571

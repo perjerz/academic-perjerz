@@ -3,8 +3,8 @@ title: "Using Nx: Angular CLI Power-ups for Modern Development"
 event: Angular Meetup July 2019
 event_url: https://www.facebook.com/events/340697073485865/
 location: Bangkok, Thailand
-summary: Nx is a set of extensible dev tools for monorepos, which helps you develop like Google, Facebook, and Microsoft. Nx also provide the useful tools to make full-stack development much easier.
-abstract: "Nx is a set of extensible dev tools for monorepos, which helps you develop like Google, Facebook, and Microsoft. Nx also provides the useful tools to make full-stack development much easier."
+summary: What's Nx and how Nx help you scale enterprise development.
+abstract:
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.

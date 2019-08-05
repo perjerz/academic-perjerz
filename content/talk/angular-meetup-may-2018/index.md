@@ -3,7 +3,7 @@ title:  NgRx Selector From Store To View
 event: Angular Meetup May 2018
 event_url: https://www.eventpop.me/e/3518-angular-meetup-th
 location: Bangkok, Thailand
-summary: 
+summary: Overview of NgRx
 abstract: 
 
 # Talk start and end times.

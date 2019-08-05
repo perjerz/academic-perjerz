@@ -3,8 +3,8 @@ title: Recap The Theory of Anular Ivy
 event: Angular Meetup NOV 2018 Hosted By 7 Peaks Software
 event_url: https://www.facebook.com/events/536523386844377/
 location: Bangkok, Thailand
-summary: Ivy is new rendering engine in Angular.
-abstract: "Ivy is new rendering engine in Angular."
+summary: History of Angular rendering engines from Template Compiler 2.0, View Engine 4.0+ to Ivy.
+abstract:
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.

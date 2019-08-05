@@ -3,7 +3,7 @@ title: Continuous everything with Angular, TravisCI, and Firebase Hosting
 event: Angular Meetup OCT 2018
 event_url: https://www.facebook.com/events/326311217947848
 location: Bangkok, Thailand
-summary: 
+summary: Continous integration using Angular, TravisCI and Firebase Hosting.
 abstract: 
 
 # Talk start and end times.
@@ -55,6 +55,6 @@ projects:
 math: true
 ---
 
-[Facebook Video](https://www.facebook.com/oddsteam/videos/1032265250267571)
-
 {{< gdocs src="https://docs.google.com/presentation/d/e/2PACX-1vRLnAozIEJh4GqMQT-DNccCrm99CEtXcB-TQ1suNeSHL3qBz-YXG6nPes6Y2nMVnQqiQ-PdP-mLlZ8d/embed?start=false&loop=false" >}}
+
+[Facebook Video](https://www.facebook.com/oddsteam/videos/1032265250267571)
