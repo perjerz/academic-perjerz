@@ -1,29 +1,29 @@
 ---
 # Display name
-name: Victor Savkin
+name: Acoshift
 
 # Username (this should match the folder name)
 authors:
-- vsavkin
+- acoshift
 
 # Is this the primary user of the site?
 superuser: false
 
 # Role/position
-role: Co-founder of Nrwl
+role: Software Magician
 
 # Organizations/Affiliations
 organizations:
-- name: Nrwl
-  url: "https://nrwl.io/"
+- name: Moon Rhythm
+  url: "https://www.moonrhythm.io/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: Building open-source dev tools for monorepos and help companies develop like Google, Facebook, and Microsoft.
+bio: Angular & Web enthusiast who passionating front-end architecture
 
 interests:
-- Angular
-- Monorepo
-- Nx
+- Golang
+- Backend Development
+- Google Cloud Platform
 
 # education:
 #   courses:
@@ -36,15 +36,15 @@ interests:
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
 #   form "mailto:your-email@example.com" or "#contact" for contact widget.
 social:
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/victorsavkin
 - icon: github
   icon_pack: fab
-  link: https://github.com/vsavkin
-- icon: medium
+  link: https://github.com/acoshift
+- icon: facebook
   icon_pack: fab
-  link: https://vsavkin.com/
+  link: https://www.facebook.com/acoshift/
+- icon: link
+  icon_pack: fas
+  link: https://acoshift.me  # For a direct email link, use "mailto:test@example.org".
 
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.  
@@ -57,8 +57,7 @@ email: ""
   
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.  
-user_groups:
-- Tech Idol
+# user_groups:
+# - Researchers
+# - Visitors
 ---
-<!-- Co-founder of Narwhal Technologies (nrwl.io), where we build open-source dev tools for monorepos and help companies develop like Google, Facebook, and Microsoft -->
-
