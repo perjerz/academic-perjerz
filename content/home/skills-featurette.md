@@ -18,42 +18,18 @@ subtitle = ""
   icon = "angular"
   icon_pack = "fab"
   name = "Angular"
-  description = ""
+  description = "Expert"
   
 [[feature]]
   icon = "prescription"
   icon_pack = "fas"
   name = "RxJS"
-  description = ""  
+  description = "Expert"  
   
 [[feature]]
   icon = "js"
   icon_pack = "fab"
   name = "JavaScript"
-  description = ""
-
-[[feature]]
-  icon = "google"
-  icon_pack = "fab"
-  name = "Golang"
-  description = ""
-
-[[feature]]
-  icon = "android"
-  icon_pack = "fab"
-  name = "Android"
-  description = ""
-
-[[feature]]
-  icon = "apple"
-  icon_pack = "fab"
-  name = "iOS"
-  description = ""
-
-[[feature]]
-  icon = "node"
-  icon_pack = "fab"
-  name = "Node.js"
-  description = ""
+  description = "Expert"
 
 +++
