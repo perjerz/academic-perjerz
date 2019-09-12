@@ -8,7 +8,7 @@ diagram: true
 image:
   placement: 3
   caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
-# draft: true
+draft: true
 highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
 highlight_style: "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
