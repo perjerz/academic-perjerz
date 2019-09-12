@@ -15,16 +15,18 @@ image:
 
 ที่มาของบทความนี้เกิดจากผมได้มีโอกาสเข้าไปเขียนโค๊ดกับรุ่นน้องคนหนึ่ง ผมเห็น Error บน Chrome Dev Tools แจ้งประมาณว่า
 
-```js
+```ts
 Error: Template parse errors:
 'mat-tab' is not a known element:
 1. If 'mat-tab' is an Angular component, then verify that it is part of this module.
 2. If 'mat-tab' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
 ```
 
-ผมก็บอกน้องไปว่า "น้องลืมใส่ import MatTabModule ใน Module ที่น้องกำลังใช้อยู่หรือเปล่า" น้องคนนั้นก็เปิดไฟล์ Module นั้นแล้วก็พบว่า ... ยังไม่ได้ใส่ MatTabModule เข้าไปที่ "imports" ใน "metadata" ของ **NgModule**
+ผมบอกน้องไปว่า "น้องลืมใส่ import MatTabModule ใน Module ที่น้องกำลังใช้อยู่หรือเปล่า"
 
-หลังน้องทำการแก้ไขตามที่ผมบอก ระบบก็ทำงานตามปกติ
+น้องคนนั้นก็เปิดไฟล์ Module นั้นแล้วก็พบว่า ... ยังไม่ได้ใส่ MatTabModule เข้าไปที่ "imports" ใน "metadata" ของ **NgModule**
+
+หลังจากน้องทำการแก้ไขตามที่ผมบอก ระบบทำงานได้ตามปกติ
 
 หลังจากนั้นผมเก็บความผิดพลาดนี้ไว้ แล้วจึงไปถามรุ่นพี่ใช้ Angular อยู่เป็นประจำว่า "เอาจริงๆพี่เข้าใจ **NgModule** ไหม"
 
@@ -38,7 +40,7 @@ Error: Template parse errors:
 
 NgModules คือ JavaScript Class ที่ถูกเพิ่มความสามารถด้วย Decorator ที่มีชื่อว่า **@NgModule** โดยที่ **@NgModule** รับ metadata object
 
-```Typescript
+```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -54,15 +56,81 @@ export class AppModule {}
 ```
 <!-- **ผมเรียกพวกนี้ว่าพิธีกรรมซึ่งมีเหตุผลข้อดีข้อเสียของมัน แต่ละ Frameworks และ Libraries มีพิธีกรรมไม่เหมือนกัน** -->
 
-สิ่งสำคัญคือ **NgModules** มีไว้เพื่ออะไร
+สิ่งสำคัญคือ **NgModule** มีไว้เพื่ออะไร
 NgModule ใช้ metadata
 
-1. อธิบายวิธีการ Compile Components, Templates, Directives และ Pipes ให้กับ Angular Compiler
+1. อธิบายวิธีการ Compile Components, Templates, Directives, Pipes ให้กับ Angular Compiler
 2. ระบุ Components, Directives, Pipes ให้เป็นสาธารณะ (Public) ที่เมื่อ Import Module นี้ไปแล้วสามารถใช้งานได้ผ่าน metadata ที่มีชื่อว่า **exports**
 3. เพิ่ม Services หรือ Providers เพื่อใช้ Dependency Injection ใน Component ได้
 
-เรามาดูตัวอย่างเคสแรกดีกว่า
-### อธิบายวิธีการ Compile Components, Templates, Directives และ Pipes ให้กับ Angular Compiler
+เรามาดูเคส 1, 2 ผ่านตัวอย่างด้านล่างนี้กันดีกว่า
+
+```typescript
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CompanyListComponent } from './company-list/company-list.component';
+import { TechToIconPipe } from './company-card/tech-to-icon.pipe';
+import { CompanyCardComponent } from './company-card/company-card.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
+  declarations: [
+    CompanyCardComponent,
+    TechToIconPipe,
+    CompanyListComponent
+  ],
+  exports: [
+    CompanyListComponent,
+    CompanyCardComponent,
+  ]
+})
+export class CompanyModule { }
+```
+
+ในตัวอย่างนี้มี metadata ที่น่าสนใจคือ imports, declarations , exports
+
+## declarations
+
+ระบุ Component, Directive, Pipe ทั้งหมดเพื่อบอก Angular Compiler ว่าใช้ในการ Compile นะ
+
+## imports
+ใช้สำหรับ imports Module อื่นๆที่เราต้องใช้ใน Component ที่เรา declarations ไว้
+
+จากตัวอย่างด้านบน ใน **CompanyCardComponent** ได้ใช้ `<mat-card></mat-card>`
+และ Directive fxLayoutAlign `<div fxLayoutAlign="center center" style="height: 300px">`
+
+การที่จะใช้สิ่งเหล่านี้ เราต้องบอก Angular Compiler ว่าเราใช้ **MatCardComponent**, **FxLayoutAlignDirective**
+
+โดยที่ **FlexLayoutModule, MatCardModule** ใส่ metadata exports สองอย่างข้างบนไว้
+
+```ts
+@NgModule({
+  imports: [
+    FlexLayoutModule,
+    MatCardModule,
+    ...
+  ],
+  ...
+})
+export class CompanyModule { }
+```
+
+## exports
+
 
 ## Ivy Spec
 ## Examples of Declarations, Imports, Exports, Schemas, Providers, Bootstrap
