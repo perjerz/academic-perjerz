@@ -1,14 +1,15 @@
 ---
 title: What is NgModule?
 date: 2019-09-12
+lastmod: 2019-09-13
 math: true
 diagram: true
 markup: mmark
 image:
   placement: 3
-  caption: 'Image credit: [**John Moeses Bauan**](https://unsplash.com/photos/OGZtQF8iC0g)'
+  caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
+draft: true
 ---
-
 # อะไรคือ NgModule กันนะ?
 
 สวัสดีครับขอต้อนรับเข้าสู่ Angular Fundamental Series โดย PerJerZ
@@ -108,6 +109,7 @@ export class CompanyModule { }
 ระบุ Component, Directive, Pipe ทั้งหมดเพื่อบอก Angular Compiler ว่าใช้ในการ Compile นะ
 
 ## imports
+
 ใช้สำหรับ imports Module อื่นๆที่เราต้องใช้ใน Component ที่เรา declarations ไว้
 
 จากตัวอย่างด้านบน ใน **CompanyCardComponent** ได้ใช้ `<mat-card></mat-card>`
@@ -131,20 +133,12 @@ export class CompanyModule { }
 
 ## exports
 
-
 ## Ivy Spec
 ## Examples of Declarations, Imports, Exports, Schemas, Providers, Bootstrap
 ## forRoot, forFeature, Module with Provider
 ## NgModules Constructor Order
 ## CommonModule, BrowserModule, RouterModule, SharedModule
 ## Angular ในยุคที่ไม่มี NgModules
-
-
-
-
-
-
-
 
 
 
