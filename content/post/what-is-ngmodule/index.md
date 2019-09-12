@@ -4,11 +4,14 @@ date: 2019-09-12
 lastmod: 2019-09-13
 math: true
 diagram: true
-markup: mmark
+# markup: mmark
 image:
   placement: 3
   caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
-draft: true
+# draft: true
+highlight: true
+highlight_languages: ["typescript"]  # Add support for highlighting additional languages
+highlight_style: "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
 ---
 # อะไรคือ NgModule กันนะ?
 
@@ -16,7 +19,7 @@ draft: true
 
 ที่มาของบทความนี้เกิดจากผมได้มีโอกาสเข้าไปเขียนโค๊ดกับรุ่นน้องคนหนึ่ง ผมเห็น Error บน Chrome Dev Tools แจ้งประมาณว่า
 
-```ts
+```typescript
 Error: Template parse errors:
 'mat-tab' is not a known element:
 1. If 'mat-tab' is an Angular component, then verify that it is part of this module.
