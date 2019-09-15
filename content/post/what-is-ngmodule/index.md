@@ -2,17 +2,15 @@
 title: What is NgModule?
 date: 2019-09-12
 lastmod: 2019-09-13
-math: true
 diagram: true
-# markup: mmark
 image:
   placement: 3
   caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
 draft: true
 highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
-highlight_style: "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
 ---
+
 # อะไรคือ NgModule กันนะ?
 
 สวัสดีครับขอต้อนรับเข้าสู่ Angular Fundamental Series โดย PerJerZ
@@ -42,7 +40,7 @@ Error: Template parse errors:
 
 ## NgModule - Unit of Compilation & Distribution
 
-NgModules คือ JavaScript Class ที่ถูกเพิ่มความสามารถด้วย Decorator ที่มีชื่อว่า **@NgModule** โดยที่ **@NgModule** รับ metadata object
+จากหน้าตาของมัน NgModules คือ JavaScript Class ที่ถูกเพิ่มความสามารถด้วย Decorator ที่มีชื่อว่า **@NgModule** โดยที่ **@NgModule** รับ metadata object
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -122,7 +120,7 @@ export class CompanyModule { }
 
 โดยที่ **FlexLayoutModule, MatCardModule** ใส่ metadata exports สองอย่างข้างบนไว้
 
-```ts
+```typescript
 @NgModule({
   imports: [
     FlexLayoutModule,
@@ -133,8 +131,6 @@ export class CompanyModule { }
 })
 export class CompanyModule { }
 ```
-
-## exports
 
 ## Ivy Spec
 ## Examples of Declarations, Imports, Exports, Schemas, Providers, Bootstrap
