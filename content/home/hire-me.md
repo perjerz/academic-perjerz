@@ -41,7 +41,7 @@ hero_media = "icon-192.png"
 
 # Note. An optional note to show underneath the links.
 [cta_note]
-  label = 'Open for Remote or Freelance Project'
+  label = 'Open for Remote or Freelance Man-hour Project'
 +++
 
 **The Best Balance Between Clean Code and Answered Business Needs Software**
