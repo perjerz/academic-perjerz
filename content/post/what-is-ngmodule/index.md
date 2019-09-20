@@ -6,12 +6,12 @@ diagram: true
 image:
   placement: 3
   caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
-draft: true
+draft: false
 highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
 ---
 
-# อะไรคือ NgModule กันนะ?
+## อะไรคือ NgModule กันนะ
 
 สวัสดีครับขอต้อนรับเข้าสู่ Angular Fundamental Series โดย PerJerZ
 
