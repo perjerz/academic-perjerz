@@ -84,11 +84,11 @@ Capacitor มาแทนที่ Cordova
 กลับมาที่ Stephen กันต่อ
 
 ![UI Bakery](./ui-bakery.JPG)
-ยังจำได้ Angular เคยมี Angular for Designer มันกลับมาแล้วในชื่อว่า UI Bakery ตามไปลองได้ที่
+ยังจำได้ไหมว่า Angular เคยมี Angular for Designer มันกลับมาแล้วในชื่อว่า UI Bakery ตามไปลองได้ที่
 [https://uibakery.io/](https://uibakery.io/)
 
-Angular Connect 2018 หรือปีที่แล้ว มีรายงานว่าใน Google มี Angular Projects 600+
-Angular Connect 2019 หรือปีนี้มี Angular Project ทั้งหมด 1500+
+Angular Connect 2018 มีรายงานว่าใน Google มี Angular Projects 600+
+Angular Connect 2019 มี Angular Project ทั้งหมด 1500+
 Firebase, Google Cloud Platform ล้วนใช้ Angular เป็นการการันตีความน่าเชื่อถือของ Angular ได้อย่างมาก
 
 ![Angular GDE](./Angular-GDE.JPG)
@@ -105,5 +105,94 @@ Angular ได้เปิดตัวโปรแกรม Angular Collaborator
 เดือนพฤษภาคมที่ผ่านมาได้ปล่อย Version 8 ไปแล้ว
 อีกไม่กี่สัปดาห์เราก็จะเข้าสู่ Version 9 กันในช่วงประมาณพฤศจิกายน โดยต่อไปจะเป็นการแนะนำฟีเจอร์เด็ดๆใน Version 8
 
+![Differential Loading](./differential-loading.JPG)
+Differential Loading คือการที่ Apps ของเราถูก Build เป็น 2 Bundles - Bundles แรกสำหรับ Browser รุ่นใหม่ Polyfill ไม่มาก Bundle เล็ก และ Bundles สองสำหรับ Browser โบราณ ที่ Polyfill จัดเต็มใหญ่กว่า
 
+โดยถ้าใช้ Modern Browsers ก็จะโหลดตัว Bundle ตัวที่เล็กทำให้เร็วกว่าสำหรับคนที่ใช้ Browser เก่าๆ
+ซึ่งก่อนจะมี Differential Loading นั้น Angular CLI Build เป็น Bundle เดียวโดยที่ polyfill ขึ้นกับ browserlist file หมายความว่าถ้าใช้ Browser สมัยใหม่ก็โดน polyfill ได้ถ้าต้อง support Browser เก่าๆ
 
+![Differential Loading Save](./differential-loading-save.JPG)
+หลังจากที่มี Differential Loading เว็บไซต์ angular.io ลดขนาดไป 41 Kb หรือประมาณ 10% สำหรับเว็บไซต์อื่นๆที่อัพเดทมาเวอร์ชั่น 8 จากรายงานแจ้งว่าลดไป 7-20%
+
+![Differential Loading Build 2 Times](./differential-loading-build-2-times.JPG)
+![Differential Loading Build 2 Times](./differential-loading-build-1-time.JPG)
+ประเด็นมันมีอยู่ว่าสมัยก่อนมัน Build 2 รอบสำหรับ Browser รุ่นใหม่ และรุ่นโบราณ แต่ได้แก้เป็นการ Downlevel แทนทำให้ Build เร็วขึ้น 45%
+
+![ng deploy](./ng-deploy.JPG)
+คำสั่ง ng deploy สำหรับ deploy Angular app ไปยัง Host ต่างๆ ไม่ว่าจะเป็น Firebase, Azure, Netlify และ Github Pages โดยก่อนใช้คำสั่งต้อง ng add ก่อน
+
+![ng new](./ng-new.JPG)
+Redesign หน้าตาของ app หลังจาก ng new ให้สวยงามและมีประโยชน์มากขึ้น
+
+![8.x Features](./8-features.JPG)
+
+- ใช้ Lazy Loading ด้วย import() syntax ตาม Standard
+- Custom Builders สำหรับปรับปรุงหรือเพิ่มจังหวะ Build เช่นใช้ Webpack ทำอะไรเพิ่ม
+- Web Worker Bundling
+- AngularJS $location support สำหรับทำ hybrid AngularJS และ Angular โช้ Router ตัวเดียวกัน
+- ปรับปรุงการสนับสนุนของ IDE ให้ดีขึ้น
+- นอกจาก Tour of heroes Tutorial แล้ว ตอนนี้ได้เพิ่ม ตัวอย่าง e-commerce เข้าไปสำหรับมือใหม่
+
+![Ivy Debugging](./ivy-debugging.JPG)
+Ivy ทำให้ Debug ง่ายขึ้นโดยสามารถเข้า Console ของ Chrome Dev Tools แล้วพิมพ์คำสั่ง ng.getComponent($0) เพื่อเข้าถึง Component และเรียกใช้ Method ใน Component นั้นได้เลย
+
+![Ivy Size](./ivy-size.JPG)
+เวอร์ชั่นล่าสุด v9.0.0-next.6 นั้นมีรายละเอียดใหม่ในเรื่องของ Bundle Size
+App ขนาดเล็กขนาดลดลง 30%, ขนาดกลางเพิ่มขึ้น 10%, ขนาดใหญ่ลดลง 40%
+
+![Ivy Instructions Basic](./ivy-instructions-basic.JPG)
+Runtime Ivy นั้นใช้ Concept คล้ายๆ Assembly ที่มี Instruction Sets
+ยกตัวอย่างใน Ivy Instruction เช่น Instruction ของการเปิดปิด tag div (elementStart, elementEnd), ใส่ข้อความ hello (text), Text Interpolcation ({{name}}) และอื่นๆอีกมากมาย โดยปกติแล้ว Instruction ทั้งหมดนี้จะถูกใส่เข้าไปใน Runtime ตามฟีเจอร์ที่เราใช้ใน Code อันไหนไม่ได้ใส่ ก็จะไม่ถูกเข้าไปใน Runtime
+
+ต่างจาก View Engine หรือ Render v2 ที่ใช้ Data Structure แปลงตอน Runtime โดยที่
+Runtime ต้องมีทุกฟีเจอร์ของ Angular และไม่สามารถ Tree Shake Feature ที่ไม่ได้ใช้ออกไปได้
+จะเห็นได้ว่า Ivy นั้นสามารถถูกถอด Feature ที่ไม่ได้ใช้ส่งผลให้ Bundle Size เล็กกว่าได้
+ศึกษาเพิ่มเติมได้ที่ Youtube ด้านล่าง
+
+{{< youtube isb5Ef6yI48 >}}
+
+![Ivy Instructions](./ivy-instructions.JPG)
+ขณะนี้มี 150 Ivy Instructions คิดว่ายิ่งมีเยอะยิ่งดีเพื่อให้เป็น Unit ที่เล็กที่สุดในการที่ถอดของที่ไม่ได้ใช้ออกไปได้อย่างชัดเจน
+ใน Version 9 Ivy จะเป็น Default
+
+![ngcc](./ngcc.JPG)
+Library ที่เคยถูก Compile ด้วย View Engine (Angular Compatibility Compiler) นั้น
+Ivy มี ngcc สำหรับแปลง Library ที่เคยถูก Compile ด้วย View Engine (Angular Compatibility Compiler) ให้เป็น Ivy
+
+[อ่าน Compiler Spec เพิ่มเติมได้ที่นี่](https://github.com/angular/angular/blob/master/packages/compiler/design/architecture.md#ngcc-operation)
+
+![Library Compatibility](./ngcc-apps-and-libs.JPG)
+ngcc จะถูกใช้ compile Library ใน npm ที่เป็น View Engine Compatibility ให้ทำงานได้กับ Apps ที่เป็น Ivy สำหรับ Library ที่เป็น Ivy อยู่แล้วก็สามารถใช้ได้เลยไม่ต้อง Compile
+
+![Incremental Transition](./incremental-transition.JPG)
+Version 9 ตอน Build Apps จะเป็น Ivy โดย Default แต่สำหรับ Libraries จะยังคงเป็น View Engine
+
+Version 10 มีแนวโน้มที่ Instruction Sets นั้น Stable เลยเริ่มทำการ Build Library เป็น Ivy เพื่อที่จะทำให้ ngcc มีบทบาทน้อยลง
+
+Version 11 ngcc จะเป็นแค่ backup สำหรับ library เก่าๆที่เป็น View Engine
+
+![ngcc-validation](./ngcc-validation.JPG)
+จากผลการทดสอบ 173 Library ชื่อดังทั้งหมด ปรากฏว่า 85% เข้ากันได้กับ Ivy
+ทุกท่านสามารถดูผลและทดสอบ Library ของท่านได้ที่ Github [https://github.com/angular/ngcc-validation](https://github.com/angular/ngcc-validation)
+อย่างไรก็ดี ทุกท่านสามารถเลือกออกจาก Ivy จนถึง Version 10
+
+ถ้าอยากลอง Ivy ตอนนี้ คำสั่งนี้เลย
+
+`ng update @angular/cli@next @angular/core@next`
+
+ต่อไปจะเป็นการ Demo Feature ที่ Ivy ทำให้เกิดขึ้นได้ อันแรกคือ
+
+Style Merging [https://github.com/matsko/ivy-styling-demo](https://github.com/matsko/ivy-styling-demo)
+
+Component Lazy Loading [https://github.com/IgorMinar/ivy-lazy-load-component](https://github.com/IgorMinar/ivy-lazy-load-component)  
+
+![New Ecosystem](./new-ecosystem.JPG)
+เกิด Ecosystem ใหม่สำหรับ
+
+- ng add เพื่อ Add Library
+- ng update อัพเดท Apps และ Library
+- builders มีคนทำ Custom Builders ใหม่ๆ เช่น ngx-build-plus
+
+จบแล้ว เป็นไงกันบ้างสำหรับการอัพเดทครั้งนี้ ฝากแชร์ต่อให้เพื่อนพี่น้อง ชาว Angular ได้อัพเดท แล้วเจอกันบทความหน้า อรุณสวัสดิ์
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="สัญญาอนุญาตของครีเอทีฟคอมมอนส์" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />ผลงานนี้ ใช้<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">สัญญาอนุญาตของครีเอทีฟคอมมอนส์แบบ แสดงที่มา-ไม่ใช้เพื่อการค้า-อนุญาตแบบเดียวกัน 4.0 International</a>.
