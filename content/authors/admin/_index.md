@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Angular Architect
+role: Angular Developer
 
 # Organizations/Affiliations
 organizations:
