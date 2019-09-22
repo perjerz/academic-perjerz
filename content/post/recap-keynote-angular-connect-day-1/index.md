@@ -2,9 +2,9 @@
 title: Recap Keynote Angular Connect Day 1
 date: 2019-09-20
 lastmod: 2019-09-22
-header:
-  image: "https://pbs.twimg.com/media/EE0LljjXYAELfAE?format=jpg&name=4096x4096"
-  caption: "Image credit: [**@ankitsharma_007**](https://twitter.com/ankitsharma_007/status/1174607831263252480)"
+image:
+  placement: 3
+  caption: 'Image credit: [**@ankitsharma_007**](https://twitter.com/ankitsharma_007/status/1174607831263252480)'
 draft: false
 highlight: false
 ---
