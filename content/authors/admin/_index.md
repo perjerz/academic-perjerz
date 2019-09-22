@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Part-time Angular Architect
+role: Angular Architect
 
 # Organizations/Affiliations
 organizations:
@@ -24,6 +24,7 @@ interests:
 - Angular
 - Web Technologies
 - Reactive Programming
+- Functional Programming
 
 education:
   courses:
