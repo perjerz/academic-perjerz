@@ -6,7 +6,7 @@ diagram: true
 image:
   placement: 3
   caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
-draft: false
+draft: true
 highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
 ---
