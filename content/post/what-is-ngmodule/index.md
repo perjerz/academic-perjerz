@@ -11,7 +11,7 @@ highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
 ---
 
-# อะไรคือ NgModule กันนะ?
+## อะไรคือ NgModule กันนะ
 
 สวัสดีครับขอต้อนรับเข้าสู่ Angular Fundamental Series โดย PerJerZ
 
@@ -40,7 +40,7 @@ Error: Template parse errors:
 
 ## NgModule - Unit of Compilation & Distribution
 
-จากหน้าตาของมัน NgModules คือ JavaScript Class ที่ถูกเพิ่มความสามารถด้วย Decorator ที่มีชื่อว่า **@NgModule** โดยที่ **@NgModule** รับ metadata object
+NgModules คือ JavaScript Class ที่ถูกเพิ่มความสามารถด้วย Decorator ที่มีชื่อว่า **@NgModule** โดยที่ **@NgModule** รับ metadata object
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -62,7 +62,7 @@ export class AppModule {}
 NgModule ใช้ metadata
 
 1. อธิบายวิธีการ Compile Components, Templates, Directives, Pipes ให้กับ Angular Compiler
-2. ระบุ Components, Directives, Pipes ให้เป็นสาธารณะ (Public) ที่เมื่อ Import Module นี้ไปแล้วสามารถใช้งานได้ผ่าน metadata ที่มีชื่อว่า **exports**
+2. ระบุ Components, Directives, Pipes ให้เป็นสาธารณะ (Public) ผ่าน metadata ที่มีชื่อว่า **exports** เพื่อให้ Module อื่น ที่ import Module นี้เรียกใช้งานได้
 3. เพิ่ม Services หรือ Providers เพื่อใช้ Dependency Injection ใน Component ได้
 
 เรามาดูเคส 1, 2 ผ่านตัวอย่างด้านล่างนี้กันดีกว่า
@@ -103,41 +103,105 @@ import { CommonModule } from '@angular/common';
 export class CompanyModule { }
 ```
 
-ในตัวอย่างนี้มี metadata ที่น่าสนใจคือ imports, declarations , exports
+[CompanyModule](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/shared/shared.module.ts)
 
-## declarations
 
-ระบุ Component, Directive, Pipe ทั้งหมดเพื่อบอก Angular Compiler ว่าใช้ในการ Compile นะ
+ในตัวอย่างนี้มี metadata ที่น่าสนใจคือ imports, declarations, exports
 
-## imports
+**declarations**
 
-ใช้สำหรับ imports Module อื่นๆที่เราต้องใช้ใน Component ที่เรา declarations ไว้
-
-จากตัวอย่างด้านบน ใน **CompanyCardComponent** ได้ใช้ `<mat-card></mat-card>`
-และ Directive fxLayoutAlign `<div fxLayoutAlign="center center" style="height: 300px">`
-
-การที่จะใช้สิ่งเหล่านี้ เราต้องบอก Angular Compiler ว่าเราใช้ **MatCardComponent**, **FxLayoutAlignDirective**
-
-โดยที่ **FlexLayoutModule, MatCardModule** ใส่ metadata exports สองอย่างข้างบนไว้
+ระบุ Component, Directive, Pipe ทั้งหมดเพื่อบอก Angular Compiler ว่าใช้ในการ Compile **เฉพาะใน Scope ของ Module นี้เท่านั้น**
 
 ```typescript
 @NgModule({
-  imports: [
-    FlexLayoutModule,
-    MatCardModule,
-    ...
+  ...
+  declarations: [
+    CompanyCardComponent,
+    TechToIconPipe,
+    CompanyListComponent
   ],
   ...
 })
 export class CompanyModule { }
 ```
 
+จากตัวอย่างโค๊ดด้านบน สิ่งที่มันอธิบายคือ
+Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**TechToIconPipe**) รู้จักกันสามารถเรียกใช้งานระหว่างกันได้
+**CompanyCardComponent** เรียกใช้ **TechToIconPipe** ใน Template
+**CompanyListComponent** วนลูปสร้าง `<company-card></company-card>` ด้วย `*ngFor` ใน Template
+(สามารถเพิ่ม Directive ที่ใช้เข้าไปได้)
+
+**imports**
+
+ใช้สำหรับ imports Module อื่นๆ เพื่อใช้สิ่งที่ Module นั้น exports ออกมาไม่ว่าจะเป็น Components, Pipes, Directives
+
+รวมถึง Services(Providers) ที่ Module นั้น Register ไว้
+
+```typescript
+@NgModule({
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
+  ...
+})
+export class CompanyModule { }
+```
+
+จากตัวอย่างโค๊ดด้านบน
+**CompanyCardComponent** ได้ใช้ `<mat-card></mat-card>`
+และ Directive fxLayoutAlign `<div fxLayoutAlign="center center" style="height: 300px">`
+
+[compnay-card.component.html](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/shared/company-card/company-card.component.html#L1)
+
+การที่จะใช้สิ่งเหล่านี้ เราต้องบอก Angular Compiler ว่าเราใช้ **MatCardComponent**, **FxLayoutAlignDirective**
+ซึ่งใน **MatCardModule**, **FxLayoutModule** ได้ exports ไว้แล้ว
+ดังนั้นเราแค่ import **MatCardModule** และ **FlexLayoutModule** ก็สามารถใช้ได้
+
+ทุกท่านอาจจะสงสัยว่า **CommonModule** มีไว้ทำอะไร
+**CommonModule** นั้นมีความสำคัญมาก
+**CommonModule** ทำให้เราสามารถใช้ `*ngIf, *ngFor, [ngClass], AsyncPipe (| async), CurrencyPipe (| currency)` และอื่นๆ เพราะตัวมันเอง exports สิ่งเหล่านี้ให้เราใช้
+
+[อ่านเพิ่มเติม](https://angular.io/api/common/CommonModule)
+
+Components อื่นๆเช่น **MatButton, BrowserAnimationsModule, MatIcon, MatProgressBar** ใช้หลักการเหมือนกับข้างบน
+
+**FormsModule, ReactiveFormsModule** ถ้าจะใช้ต้อง import เข้ามาเช่นกัน
+
+**exports**
+
+
+
+```typescript
+@NgModule({
+  ...,
+  exports: [
+    CompanyListComponent,
+    CompanyCardComponent,
+  ]
+})
+export class CompanyModule { }
+```
+
+**providers**
+
+**entryComponents**
+
+**bootstrap**
+
+
 ## Ivy Spec
-## Examples of Declarations, Imports, Exports, Schemas, Providers, Bootstrap
 ## forRoot, forFeature, Module with Provider
 ## NgModules Constructor Order
 ## CommonModule, BrowserModule, RouterModule, SharedModule
 ## Angular ในยุคที่ไม่มี NgModules
+
+## License
 
 
 
