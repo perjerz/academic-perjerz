@@ -6,14 +6,14 @@ diagram: true
 image:
   placement: 3
   caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
-draft: true
+draft: false
 highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
 ---
 
 ## อะไรคือ NgModule กันนะ
 
-สวัสดีครับขอต้อนรับเข้าสู่ Angular Fundamental Series โดย PerJerZ
+สวัสดีครับขอต้อนรับเข้าสู่ Angular Fundamental Series
 
 ที่มาของบทความนี้เกิดจากผมได้มีโอกาสเข้าไปเขียนโค๊ดกับรุ่นน้องคนหนึ่ง ผมเห็น Error บน Chrome Dev Tools แจ้งประมาณว่า
 
@@ -97,45 +97,81 @@ import { CommonModule } from '@angular/common';
   ],
   exports: [
     CompanyListComponent,
-    CompanyCardComponent,
   ]
 })
 export class CompanyModule { }
 ```
 
-[CompanyModule](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/shared/shared.module.ts)
-
-
 ในตัวอย่างนี้มี metadata ที่น่าสนใจคือ imports, declarations, exports
 
-**declarations**
+แต่จะขอเล่าจาก exports, imports, declarations ตามลำดับ
 
-ระบุ Component, Directive, Pipe ทั้งหมดเพื่อบอก Angular Compiler ว่าใช้ในการ Compile **เฉพาะใน Scope ของ Module นี้เท่านั้น**
+</br></br></br>
+**exports**
+
+ใช้ระบุ Components, Directives, Pipes เพื่อส่งออกให้เรียกใช้ใน Scope นั้นๆได้
+
+ความหมายคือหาก ModuleA import ModuleB นี้เข้าไป ทุกสิ่งที่ exports ใน ModuleB จะไปอยู่ใน Scope ของการ Compile ModuleA
+
+ทำให้ ModuleA รู้จักและสามารถเรียกใช้สิ่งที่ ModuleB export ได้
 
 ```typescript
 @NgModule({
-  ...
-  declarations: [
-    CompanyCardComponent,
-    TechToIconPipe,
-    CompanyListComponent
-  ],
-  ...
+  ...,
+  exports: [
+    CompanyListComponent,
+    // XXXPipe,
+    // XXXDirective
+  ]
 })
 export class CompanyModule { }
 ```
 
-จากตัวอย่างโค๊ดด้านบน สิ่งที่มันอธิบายคือ
-Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**TechToIconPipe**) รู้จักกันสามารถเรียกใช้งานระหว่างกันได้
-**CompanyCardComponent** เรียกใช้ **TechToIconPipe** ใน Template
-**CompanyListComponent** วนลูปสร้าง `<company-card></company-card>` ด้วย `*ngFor` ใน Template
-(สามารถเพิ่ม Directive ที่ใช้เข้าไปได้)
+ตัวอย่าง **CompanyListComponent** ถูก exports ใน **CompanyModule** และเมื่อ **AppModule** import **CompanyModule** เข้าไป
 
+```typescript
+import { CompanyModule } from './company/company.module';
+...
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ]
+  imports: [
+    ...,
+    CompanyModule,
+    ...
+  ],
+  ...
+})
+export class AppModule { }
+```
+
+[AppModule ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/app.module.ts)
+
+
+**AppComponent** ที่อยู่ใน declarations จึงรู้จักและสามารถเรียกใช้ **CompanyListComponent** ใน Template ได้
+
+![Export CompanyModule](./exports-company-module.png)
+
+ด้านล่างเป็นตัวอย่างของการที่ **AppComponent** Template (app.component.html) เรียกใช้ `<angular-th-company-list></angular-th-company-list>` ซึ่งก็คือ selector ใน **CompanyListComponent**
+
+```html
+...
+<angular-th-company-list [companies]="companies$ | async" [loaded]="loaded"></angular-th-company-list>
+...
+```
+
+ซึ่งเรียกใช้ได้ตามปกติเพราะรู้จักแล้ว
+
+[app.component.html ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/app.component.html)
+
+</br></br></br>
 **imports**
 
 ใช้สำหรับ imports Module อื่นๆ เพื่อใช้สิ่งที่ Module นั้น exports ออกมาไม่ว่าจะเป็น Components, Pipes, Directives
 
-รวมถึง Services(Providers) ที่ Module นั้น Register ไว้
+รวมถึง Register Providers ที่ Module นี้ไว้สำหรับใช้ตอน Run-time
 
 ```typescript
 @NgModule({
@@ -147,6 +183,7 @@ Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**Te
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    // XXXModule
   ],
   ...
 })
@@ -154,10 +191,10 @@ export class CompanyModule { }
 ```
 
 จากตัวอย่างโค๊ดด้านบน
-**CompanyCardComponent** ได้ใช้ `<mat-card></mat-card>`
-และ Directive fxLayoutAlign `<div fxLayoutAlign="center center" style="height: 300px">`
+**CompanyCardComponent** (company-card.component.html) ได้ใช้ `<mat-card></mat-card>`
+และ Directive fxLayoutAlign `<div fxLayoutAlign="center center">`
 
-[compnay-card.component.html](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/shared/company-card/company-card.component.html#L1)
+[company-card.component.html ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/company/company-card/company-card.component.html#L1)
 
 การที่จะใช้สิ่งเหล่านี้ เราต้องบอก Angular Compiler ว่าเราใช้ **MatCardComponent**, **FxLayoutAlignDirective**
 ซึ่งใน **MatCardModule**, **FxLayoutModule** ได้ exports ไว้แล้ว
@@ -167,26 +204,55 @@ export class CompanyModule { }
 **CommonModule** นั้นมีความสำคัญมาก
 **CommonModule** ทำให้เราสามารถใช้ `*ngIf, *ngFor, [ngClass], AsyncPipe (| async), CurrencyPipe (| currency)` และอื่นๆ เพราะตัวมันเอง exports สิ่งเหล่านี้ให้เราใช้
 
-[อ่านเพิ่มเติม](https://angular.io/api/common/CommonModule)
+[อ่าน CommonModule เพิ่มเติม](https://angular.io/api/common/CommonModule)
 
 Components อื่นๆเช่น **MatButton, BrowserAnimationsModule, MatIcon, MatProgressBar** ใช้หลักการเหมือนกับข้างบน
 
 **FormsModule, ReactiveFormsModule** ถ้าจะใช้ต้อง import เข้ามาเช่นกัน
+![Import CompanyModule](./imports-company-module.png)
 
-**exports**
+</br></br></br>
+**declarations**
 
-
+ระบุ Component, Directive, Pipe ทั้งหมดเพื่อบอก Angular Compiler ว่าใช้ในการ Compile **เฉพาะใน Scope ของ Module นี้เท่านั้น**
 
 ```typescript
 @NgModule({
-  ...,
-  exports: [
-    CompanyListComponent,
+  ...
+  declarations: [
     CompanyCardComponent,
-  ]
+    TechToIconPipe,
+    CompanyListComponent,
+    // XXXDirective
+  ],
+  ...
 })
 export class CompanyModule { }
 ```
+
+จากตัวอย่างโค๊ดด้านบน สิ่งที่มันอธิบายคือ
+Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**TechToIconPipe**) รู้จักกันสามารถเรียกใช้งานระหว่างกันได้
+**CompanyCardComponent** เรียกใช้ **TechToIconPipe** ใน Template
+
+```html
+...
+<img *ngIf="tech | techToIcon as icon; else techText"/>
+...
+```
+
+[company-card.component.html ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/company/company-card/company-card.component.html#L24)
+
+**CompanyListComponent** วนลูปสร้าง `<company-card></company-card>` ด้วย `*ngFor` ใน Template
+
+```html
+...
+<angular-th-company-card *ngFor="let company of companies" [company]="company"></angular-th-company-card>
+...
+```
+
+[company-list.component.html ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/company/company-list/company-list.component.html#L3)
+
+![Declaration Company Module](./declarations-company-module.png)
 
 **providers**
 
@@ -199,198 +265,7 @@ export class CompanyModule { }
 ## forRoot, forFeature, Module with Provider
 ## NgModules Constructor Order
 ## CommonModule, BrowserModule, RouterModule, SharedModule
+## Best Practices of NgModules
 ## Angular ในยุคที่ไม่มี NgModules
 
-## License
-
-
-
-
-
-
-**Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.**
-
-On this page, you'll find some examples of the types of technical content that can be rendered with Academic.
-
-## Examples
-
-### Code
-
-Academic supports a Markdown extension for highlighting code syntax. You can enable this feature by toggling the `highlight` option in your `config/_default/params.toml` file.
-
-    ```python
-    import pandas as pd
-    data = pd.read_csv("data.csv")
-    data.head()
-    ```
-
-renders as
-
-```python
-import pandas as pd
-data = pd.read_csv("data.csv")
-data.head()
-```
-
-### Math
-
-Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file and adding `markup: mmark` to your page front matter.
-
-To render *inline* or *block* math, wrap your LaTeX math with `$$...$$`.
-
-Example **math block**:
-
-```tex
-$$\gamma_{n} = \frac{ 
-\left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T 
-\left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}
-{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-```
-
-renders as
-
-$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-
-Example **inline math** `$$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$$` renders as $$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$$ .
-
-Example **multi-line math** using the `\\` math linebreak:
-
-```tex
-$$f(k;p_0^*) = \begin{cases} p_0^* & \text{if }k=1, \\
-1-p_0^* & \text {if }k=0.\end{cases}$$
-```
-
-renders as
-
-$$f(k;p_0^*) = \begin{cases} p_0^* & \text{if }k=1, \\
-1-p_0^* & \text {if }k=0.\end{cases}$$
-
-### Diagrams
-
-Academic supports a Markdown extension for diagrams. You can enable this feature by toggling the `diagram` option in your `config/_default/params.toml` file or by adding `diagram: true` to your page front matter.
-
-An example **flowchart**:
-
-    ```mermaid
-    graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
-    ```
-
-renders as
-
-```mermaid
-graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
-```
-
-An example **sequence diagram**:
-
-    ```mermaid
-    sequenceDiagram
-      participant Alice
-      participant Bob
-      Alice->John: Hello John, how are you?
-      loop Healthcheck
-          John->John: Fight against hypochondria
-      end
-      Note right of John: Rational thoughts <br/>prevail...
-      John-->Alice: Great!
-      John->Bob: How about you?
-      Bob-->John: Jolly good!
-    ```
-
-renders as
-
-```mermaid
-sequenceDiagram
-  participant Alice
-  participant Bob
-  Alice->John: Hello John, how are you?
-  loop Healthcheck
-      John->John: Fight against hypochondria
-  end
-  Note right of John: Rational thoughts <br/>prevail...
-  John-->Alice: Great!
-  John->Bob: How about you?
-  Bob-->John: Jolly good!
-```
-
-An example **Gantt diagram**:
-
-    ```mermaid
-    gantt
-      dateFormat  YYYY-MM-DD
-      section Section
-      A task           :a1, 2014-01-01, 30d
-      Another task     :after a1  , 20d
-      section Another
-      Task in sec      :2014-01-12  , 12d
-      another task      : 24d
-    ```
-
-renders as
-
-```mermaid
-gantt
-  dateFormat  YYYY-MM-DD
-  section Section
-  A task           :a1, 2014-01-01, 30d
-  Another task     :after a1  , 20d
-  section Another
-  Task in sec      :2014-01-12  , 12d
-  another task      : 24d
-```
-
-### Todo lists
-
-You can even write your todo lists in Academic too:
-
-```markdown
-- [x] Write math example
-- [x] Write diagram example
-- [ ] Do something else
-```
-
-renders as
-
-- [x] Write math example
-- [x] Write diagram example
-- [ ] Do something else
-
-### Tables
-
-Represent your data in tables:
-
-```markdown
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-```
-
-renders as
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
-### Asides
-
-Academic supports a Markdown extension for asides, also referred to as *notices* or *hints*. By prefixing a paragraph with `A>`, it will render as an aside. You can enable this feature by adding `markup: mmark` to your page front matter, or alternatively using the [*Alert* shortcode](https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts).
-
-```markdown
-A> A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
-```
-
-renders as
-
-A> A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
-
-### Did you find this page helpful? Consider sharing it 🙌
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="สัญญาอนุญาตของครีเอทีฟคอมมอนส์" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />บทความนี้ใช้<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">สัญญาอนุญาตของครีเอทีฟคอมมอนส์แบบ แสดงที่มา-ไม่ใช้เพื่อการค้า-อนุญาตแบบเดียวกัน 4.0 International</a>.
