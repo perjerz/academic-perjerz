@@ -169,9 +169,9 @@ export class AppModule { }
 </br></br></br>
 **imports**
 
-ใช้สำหรับ imports Module อื่นๆ เพื่อใช้สิ่งที่ Module นั้น exports ออกมาไม่ว่าจะเป็น Components, Pipes, Directives
+ใช้สำหรับ imports Module อื่นๆ เพื่อใช้สิ่งที่ Module นั้น exports ออกมาไม่ว่าจะเป็น Components, Pipes, Directives ณ Compile-time
 
-รวมถึง Register Providers ที่ Module นี้ไว้สำหรับใช้ตอน Run-time
+รวมถึง Providers ที่ Module นั้น Register ไว้ก็สามารถใช้ได้ ณ Run-time (Dependency Injection)
 
 ```typescript
 @NgModule({
@@ -256,13 +256,47 @@ Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**Te
 
 **providers**
 
+หลังจาก Angular Version 6.0 เราสามารถ Singleton Service ด้วยการใส่ `providedIn: 'root'` ใน metadata ของ `@Injectable()` เพื่อบอก Angular ให้ Register Service นี้ที่ Application Root ซึ่งวิธีนี้ทำให้ Compiler สามารถ Tree-shaking Services ที่ไม่ได้ใช้ออก
+
+```typescript
+import { shareReplay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Company } from '@who-use-angular-in-thailand/interfaces';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CompanyService {
+
+  constructor(private http: HttpClient) { }
+  getCompanies() {
+    return this.http.get<Company[]>('/assets/data/companies.json').pipe(
+      shareReplay(1));
+  }
+}
+```
+
+แต่ก่อนหน้านั้น 6.0 ต้อง register ที่ระดับ Module (หรือ Component Level) ใน providers
+
+```typescript
+@NgModule({
+  ...
+  providers: [CompanyService],
+  ...
+})
+```
+
+
+## forRoot, forFeature, Module with Provider
+
 **entryComponents**
 
 **bootstrap**
 
 
 ## Ivy Spec
-## forRoot, forFeature, Module with Provider
+
 ## NgModules Constructor Order
 ## CommonModule, BrowserModule, RouterModule, SharedModule
 ## Best Practices of NgModules
