@@ -254,6 +254,9 @@ Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**Te
 
 ![Declaration Company Module](./declarations-company-module.png)
 
+
+
+
 **providers**
 
 หลังจาก Angular Version 6.0 เราสามารถ Singleton Service ด้วยการใส่ `providedIn: 'root'` ใน metadata ของ `@Injectable()` เพื่อบอก Angular ให้ Register Service นี้ที่ Application Root ซึ่งวิธีนี้ทำให้ Compiler สามารถ Tree-shaking Services ที่ไม่ได้ใช้ออก
@@ -282,13 +285,129 @@ export class CompanyService {
 ```typescript
 @NgModule({
   ...
-  providers: [CompanyService],
+  providers: [
+    CompanyService,
+    // {
+    //   provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true
+    // },
+  ],
   ...
 })
 ```
 
+## forRoot, forChild, forFeature, forXXX, xxx คือ ModulewithProviders
 
-## forRoot, forFeature, Module with Provider
+ทุกท่านอาจจะเคยเห็น forRoot, forChild, forFeature และอื่นๆ มันคืออะไรกันนะ? 🤔
+
+```typescript
+@NgModule({
+  imports: [RouterModule.forRoot(...)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+
+@NgModule({
+  imports: [RouterModule.forChild(...)],
+  exports: [RouterModule]
+})
+export class CompanyRoutingModule { }
+
+@NgModule({
+  imports: [
+    StoreModule.forFeature(...),
+    TranslateModule.forChild(...),
+    EffectsModule.forFeature(...)
+  ],
+})
+export class ExamplesModule { }
+
+@NgModule({
+  imports: [
+    AngularFireModule.initializeApp(...),
+    StoreModule.forRoot(...),
+    StoreRouterConnectingModule.forRoot(),
+    EffectsModule.forRoot(...),
+    StoreDevtoolsModule.instrument(...),
+    TranslateModule.forRoot(...)
+  ],
+})
+export class AppModule { }
+```
+
+ดูแล้วมันเหมือนเอาไว้ Configure อะไรบางอย่างถูกต้องไหมครับ เรามาดูตัวอย่างจาก AngularFireModule ดีกว่า
+
+```typescript
+const FirebaseAppProvider = {
+    provide: FirebaseApp,
+    useFactory: _firebaseAppFactory,
+    deps: [
+        FirebaseOptionsToken,
+        [new Optional(), FirebaseNameOrConfigToken]
+    ]
+};
+
+@NgModule({
+    providers: [ FirebaseAppProvider ],
+})
+export class AngularFireModule {
+    static initializeApp(options: FirebaseOptions, nameOrConfig?: string | FirebaseAppConfig) {
+        return {
+            ngModule: AngularFireModule,
+            providers: [
+                { provide: FirebaseOptionsToken, useValue: options },
+                { provide: FirebaseNameOrConfigToken, useValue: nameOrConfig }
+            ]
+        }
+    }
+}
+```
+
+[AngularFireModule ฉบับเต็ม](https://github.com/angular/angularfire2/blob/master/src/core/firebase.app.module.ts#L58)\
+
+ถูกต้องแล้วครับมันใช้สำหรับ Configure Value ใน Token, Service เพื่อตอนที่เราจะใช้ Dependency Injection ใน Component จะได้ค่านั้นไปใช้
+ตัวอย่างเช่นการ Setup AngularFire จะทำให้ Angular App คุยกับ Firebase เราจึงต้องจำเป็นระบุ Config
+
+```typescript
+@NgModule({
+  imports: [
+    AngularFireModule.initializeApp({
+      apiKey: 'perjerzKey',
+      authDomain: 'perjerz.app',
+      projectId: 'perjerzId',
+      databaseURL: 'https://perjerz.firebaseio.com',
+      storageBucket: 'perjerz.appspot.com',
+      messagingSenderId: '1212312121',
+      appId: '1150',
+    }),
+    ...
+  ],
+})
+export class AppModule { }
+```
+
+แล้วเมื่อเราจะใช้ Service ของ Firebase เช่น AngularFireDatabase, AngularFireAuth เราจึงสามารถใช้มันได้เลยโดยไม่ต้องมาส่งค่า apiKey, authDomain, databaseURL ซ้ำอีกรอบเพราะมันจะไป Resolve Value จาก Token ที่ Configure (Register) ไว้ที่ Module แล้ว
+
+```typescript
+@Injectable()
+export class AppGuard implements CanActivate {
+  constructor(
+    private db: AngularFireDatabase,
+    private auth: AngularFireAuth,
+    private router: Router,
+  ) { }
+   canActivate(): Observable<boolean | UrlTree> {
+    return this.auth.authState.pipe(switchMap(user => {
+        return this.db.object(`...`).valueChanges().pipe(...)
+      }
+   }
+}
+```
+
+จะเห็นได้ว่าคนใหม่เข้าโปรเจค สามารถมาอ่าน Configure ที่ระบุไว้ตรง Module ได้เลย
+
+[อ่านเรื่อง Dependency Injection ได้ที่ DevNote](https://medium.com/devnote/%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-dependency-injection-%E0%B9%83%E0%B8%99-angular-880cbf483239)
+
+เดะเราจะมาคุยเรื่อง Dependency Injection กันต่อ
 
 **entryComponents**
 
