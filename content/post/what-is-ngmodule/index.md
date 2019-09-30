@@ -409,16 +409,101 @@ export class AppGuard implements CanActivate {
 
 เดะเราจะมาคุยเรื่อง Dependency Injection กันต่อ
 
+
+
+
 **entryComponents**
+
+ไว้ระบุ Component ที่จะต้อง Compile บอก Angular Compiler ว่าเราจะใช้ Component เหล่านี้แน่ๆ สร้าง Component Factory ทำ Dynamic Load ณ Run-time (Imperatively) ไม่ต้อง Tree Shake ลบ Component นี้ออกไป
+
+โดยปกติแล้ว Component ที่เราใช้ใน Template ```<company-card></company-card>``` Compiler มันรู้ได้เลยจากการใช้ (Reference) จึงสามารถ Inline Instantiation ได้เลย (Statically, Declaratively)
+
+มีอีกเรื่องหนึ่งที่น่าสนใจคือการที่ เราประกาศ Declarations และ Exports ComponentA, ComponentB, ComponentC ที่ ModuleA แล้วเรา Import ModuleA ใน AppModule แต่ปรากฏว่าใน Template เราไม่ได้มีการใช้ (Reference) สิ่งเหล่านั้น Angular Compiler จะถือว่าเราไม่ได้ใช้ จึงไม่รวมเข้าไปใน Bundle เพื่อทำให้มันเล็กลง ยกตัวอย่างเช่นกรณีของ Custom MatModule (Material Design Module) ที่ declarations และ exports ทุกอย่าง ถึงเราจะ import MatButtonModule, MatCardModule เข้าแต่เราไม่ได้ใช้ ใน Template ก็ไม่ต้องจ่าย Cost ของขนาด Bundle ที่ใหญ่ขึ้น
+
+```typescript
+@NgModule({
+  imports: [
+    CommonModule,
+    MatToolbarModule, MatMenuModule, MatCardModule, MatDialogModule,MatIconModule,
+    MatButtonModule, MatListModule, MatCheckboxModule, MatFormFieldModule, MatInputModule
+  ],
+  exports: [
+    MatToolbarModule, MatMenuModule, MatCardModule, MatDialogModule, MatIconModule,
+    MatButtonModule, MatListModule, MatCheckboxModule,MatFormFieldModule, MatInputModule
+  ],
+  declarations: []
+})
+export class CustomMatModule { }
+```
+
+แต่กลับกันในกรณีการทำ [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component ตอน Runtime)
+
+ตัวอย่างที่ชัดเจนเลยคือ [MatDialog](https://material.angular.io/components/dialog/overview#configuring-dialog-content-via-code-entrycomponents-code-) (Material Dialog)  
+
+```typescript
+@NgModule({
+  imports: [
+    // ...
+    MatDialogModule
+  ],
+
+  declarations: [
+    AppComponent,
+    ExampleDialogComponent
+  ],
+
+  entryComponents: [
+    ExampleDialogComponent // ต้องระบุว่า Component นี้เข้าไป
+  ],
+
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+จริงๆแล้วการ Load Component ใน Routes (RouterModule) นั้นใช้ Component Factory เหมือนกันเพราะมัน Dynamic Load ณ Runtime เพียงแต่ว่าเราไม่ต้องระบุ Component ใน entryComponents เองเพราะ RouterModule แอบเพิ่มให้เองตอน Compile
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'a',
+    component: ComponentA
+  },
+  {
+    path: 'b',
+    component: ComponentB
+  }
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
 
 **bootstrap**
 
+ระบุ Component ที่เอาไว้สร้างตอนเริ่มรัน App (Bootstrap) โดยปกติคือ Root Component ซึ่งก็คือ AppComponent
+Bootstrap Component นั้นจะถูกเพิ่มเข้าไปใน entryComponents โดยอัตโนมัติ
+
+**schemas**
+
+## NgModules Constructor Order
+
+## Type of Modules
+
+## Lazy Load Module
+
+## CommonModule, BrowserModule, RouterModule, SharedModule
+## Best Practices of NgModules
 
 ## Ivy Spec
 
-## NgModules Constructor Order
-## CommonModule, BrowserModule, RouterModule, SharedModule
-## Best Practices of NgModules
 ## Angular ในยุคที่ไม่มี NgModules
+
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="สัญญาอนุญาตของครีเอทีฟคอมมอนส์" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />บทความนี้ใช้<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">สัญญาอนุญาตของครีเอทีฟคอมมอนส์แบบ แสดงที่มา-ไม่ใช้เพื่อการค้า-อนุญาตแบบเดียวกัน 4.0 International</a>.
