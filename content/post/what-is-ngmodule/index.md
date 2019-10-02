@@ -6,7 +6,7 @@ diagram: true
 image:
   placement: 3
   caption: 'Image credit: [**angular.io**](https://angular.io/guide/architecture-modules#angular-libraries)'
-draft: true
+draft: false
 highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
 ---
@@ -40,7 +40,7 @@ Error: Template parse errors:
 
 ## NgModule - Unit of Compilation & Distribution
 
-NgModules คือ JavaScript Class ที่ถูกเพิ่มความสามารถด้วย Decorator ที่มีชื่อว่า **@NgModule** โดยที่ **@NgModule** รับ metadata object
+NgModule คือ JavaScript Class ที่ถูกเพิ่มความสามารถด้วย Decorator ที่มีชื่อว่า **@NgModule** โดยที่ **@NgModule** รับ metadata object
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -56,7 +56,6 @@ import { AppComponent } from './app.component';
 })
 export class AppModule {}
 ```
-<!-- **ผมเรียกพวกนี้ว่าพิธีกรรมซึ่งมีเหตุผลข้อดีข้อเสียของมัน แต่ละ Frameworks และ Libraries มีพิธีกรรมไม่เหมือนกัน** -->
 
 สิ่งสำคัญคือ **NgModule** มีไว้เพื่ออะไร
 NgModule ใช้ metadata
@@ -68,18 +67,6 @@ NgModule ใช้ metadata
 เรามาดูเคส 1, 2 ผ่านตัวอย่างด้านล่างนี้กันดีกว่า
 
 ```typescript
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CompanyListComponent } from './company-list/company-list.component';
-import { TechToIconPipe } from './company-card/tech-to-icon.pipe';
-import { CompanyCardComponent } from './company-card/company-card.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -102,11 +89,13 @@ import { CommonModule } from '@angular/common';
 export class CompanyModule { }
 ```
 
+[CompanyModule ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/company/company.module.ts)
+
 ในตัวอย่างนี้มี metadata ที่น่าสนใจคือ imports, declarations, exports
 
 แต่จะขอเล่าจาก exports, imports, declarations ตามลำดับ
 
-</br></br></br>
+</br></br>
 **exports**
 
 ใช้ระบุ Components, Directives, Pipes เพื่อส่งออกให้เรียกใช้ใน Scope นั้นๆได้
@@ -114,6 +103,8 @@ export class CompanyModule { }
 ความหมายคือหาก ModuleA import ModuleB นี้เข้าไป ทุกสิ่งที่ exports ใน ModuleB จะไปอยู่ใน Scope ของการ Compile ModuleA
 
 ทำให้ ModuleA รู้จักและสามารถเรียกใช้สิ่งที่ ModuleB export ได้
+
+ตัวอย่าง **CompanyListComponent** ถูก exports ใน **CompanyModule**
 
 ```typescript
 @NgModule({
@@ -127,12 +118,9 @@ export class CompanyModule { }
 export class CompanyModule { }
 ```
 
-ตัวอย่าง **CompanyListComponent** ถูก exports ใน **CompanyModule** และเมื่อ **AppModule** import **CompanyModule** เข้าไป
+และเมื่อ **AppModule** import **CompanyModule** เข้าไป
 
 ```typescript
-import { CompanyModule } from './company/company.module';
-...
-
 @NgModule({
   declarations: [
     AppComponent
@@ -148,7 +136,6 @@ export class AppModule { }
 ```
 
 [AppModule ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/app.module.ts)
-
 
 **AppComponent** ที่อยู่ใน declarations จึงรู้จักและสามารถเรียกใช้ **CompanyListComponent** ใน Template ได้
 
@@ -193,6 +180,16 @@ export class CompanyModule { }
 จากตัวอย่างโค๊ดด้านบน
 **CompanyCardComponent** (company-card.component.html) ได้ใช้ `<mat-card></mat-card>`
 และ Directive fxLayoutAlign `<div fxLayoutAlign="center center">`
+
+```html
+<mat-card fxLayout="column" *ngIf="company">
+  ...
+  <div fxLayoutAlign="center center" style="height: 300px">
+    ...
+  </div>
+  ...
+</mat-card>
+```
 
 [company-card.component.html ฉบับเต็ม](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/company/company-card/company-card.component.html#L1)
 
@@ -254,19 +251,12 @@ Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**Te
 
 ![Declaration Company Module](./declarations-company-module.png)
 
-
-
-
+</br></br></br>
 **providers**
 
 หลังจาก Angular Version 6.0 เราสามารถ Singleton Service ด้วยการใส่ `providedIn: 'root'` ใน metadata ของ `@Injectable()` เพื่อบอก Angular ให้ Register Service นี้ที่ Application Root ซึ่งวิธีนี้ทำให้ Compiler สามารถ Tree-shaking Services ที่ไม่ได้ใช้ออก
 
 ```typescript
-import { shareReplay } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Company } from '@who-use-angular-in-thailand/interfaces';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -295,7 +285,7 @@ export class CompanyService {
 })
 ```
 
-## forRoot, forChild, forFeature, forXXX, xxx คือ ModulewithProviders
+**forRoot, forChild, forFeature, forXXX, xxx คือ ModulewithProviders**
 
 ทุกท่านอาจจะเคยเห็น forRoot, forChild, forFeature และอื่นๆ มันคืออะไรกันนะ? 🤔
 
@@ -337,6 +327,29 @@ export class AppModule { }
 ดูแล้วมันเหมือนเอาไว้ Configure อะไรบางอย่างถูกต้องไหมครับ เรามาดูตัวอย่างจาก AngularFireModule ดีกว่า
 
 ```typescript
+@NgModule({
+  imports: [
+    AngularFireModule.initializeApp({
+      apiKey: 'perjerzKey',
+      authDomain: 'perjerz.app',
+      projectId: 'perjerzId',
+      databaseURL: 'https://perjerz.firebaseio.com',
+      storageBucket: 'perjerz.appspot.com',
+      messagingSenderId: '1212312121',
+      appId: '1150',
+    }),
+    ...
+  ],
+})
+export class AppModule { }
+```
+
+ถูกต้องแล้วครับมันใช้สำหรับ Configure Value ใน Token, Service เพื่อตอนที่เราจะใช้ Dependency Injection ใน Component จะได้ค่านั้นไปใช้
+ตัวอย่างเช่นการ Setup AngularFire จะทำให้ Angular App คุยกับ Firebase เราจึงต้องจำเป็นระบุ Config
+
+ด้านล่างเป็น Code AngularFireModule จาก @angular/fire จะเห็นได้ว่ามันรับค่าผ่าน parameters แล้วเอาไป config ให้กับ providers - FirebaseOptionsToken และ FirebaseNameOrConfigToken ไปใช้
+
+```typescript
 const FirebaseAppProvider = {
     provide: FirebaseApp,
     useFactory: _firebaseAppFactory,
@@ -364,27 +377,6 @@ export class AngularFireModule {
 
 [AngularFireModule ฉบับเต็ม](https://github.com/angular/angularfire2/blob/master/src/core/firebase.app.module.ts#L58)\
 
-ถูกต้องแล้วครับมันใช้สำหรับ Configure Value ใน Token, Service เพื่อตอนที่เราจะใช้ Dependency Injection ใน Component จะได้ค่านั้นไปใช้
-ตัวอย่างเช่นการ Setup AngularFire จะทำให้ Angular App คุยกับ Firebase เราจึงต้องจำเป็นระบุ Config
-
-```typescript
-@NgModule({
-  imports: [
-    AngularFireModule.initializeApp({
-      apiKey: 'perjerzKey',
-      authDomain: 'perjerz.app',
-      projectId: 'perjerzId',
-      databaseURL: 'https://perjerz.firebaseio.com',
-      storageBucket: 'perjerz.appspot.com',
-      messagingSenderId: '1212312121',
-      appId: '1150',
-    }),
-    ...
-  ],
-})
-export class AppModule { }
-```
-
 แล้วเมื่อเราจะใช้ Service ของ Firebase เช่น AngularFireDatabase, AngularFireAuth เราจึงสามารถใช้มันได้เลยโดยไม่ต้องมาส่งค่า apiKey, authDomain, databaseURL ซ้ำอีกรอบเพราะมันจะไป Resolve Value จาก Token ที่ Configure (Register) ไว้ที่ Module แล้ว
 
 ```typescript
@@ -403,42 +395,20 @@ export class AppGuard implements CanActivate {
 }
 ```
 
-จะเห็นได้ว่าคนใหม่เข้าโปรเจค สามารถมาอ่าน Configure ที่ระบุไว้ตรง Module ได้เลย
+จะเห็นได้ว่าคนใหม่เข้าโปรเจค ก็สามารถมาอ่าน Configure ที่ระบุไว้ตรง Module ได้เลย
 
 [อ่านเรื่อง Dependency Injection ได้ที่ DevNote](https://medium.com/devnote/%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-dependency-injection-%E0%B9%83%E0%B8%99-angular-880cbf483239)
 
-เดะเราจะมาคุยเรื่อง Dependency Injection กันต่อ
-
-
-
-
+</br></br></br>
 **entryComponents**
 
 ไว้ระบุ Component ที่จะต้อง Compile บอก Angular Compiler ว่าเราจะใช้ Component เหล่านี้แน่ๆ สร้าง Component Factory ทำ Dynamic Load ณ Run-time (Imperatively) ไม่ต้อง Tree Shake ลบ Component นี้ออกไป
 
-โดยปกติแล้ว Component ที่เราใช้ใน Template ```<company-card></company-card>``` Compiler มันรู้ได้เลยจากการใช้ (Reference) จึงสามารถ Inline Instantiation ได้เลย (Statically, Declaratively)
+โดยปกติแล้ว Component ที่เราใช้ใน Template `<company-card></company-card>` Compiler มันรู้ได้เลยจากการใช้ (Reference) จึงสามารถ Inline Instantiation ได้เลย (Statically, Declaratively)
 
-มีอีกเรื่องหนึ่งที่น่าสนใจคือการที่ เราประกาศ Declarations และ Exports ComponentA, ComponentB, ComponentC ที่ ModuleA แล้วเรา Import ModuleA ใน AppModule แต่ปรากฏว่าใน Template เราไม่ได้มีการใช้ (Reference) สิ่งเหล่านั้น Angular Compiler จะถือว่าเราไม่ได้ใช้ จึงไม่รวมเข้าไปใน Bundle เพื่อทำให้มันเล็กลง ยกตัวอย่างเช่นกรณีของ Custom MatModule (Material Design Module) ที่ declarations และ exports ทุกอย่าง ถึงเราจะ import MatButtonModule, MatCardModule เข้าแต่เราไม่ได้ใช้ ใน Template ก็ไม่ต้องจ่าย Cost ของขนาด Bundle ที่ใหญ่ขึ้น
+แต่กลับกันในกรณีการทำ [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component ตอน Runtime) ซึ่งต้องใช้ entryComponents
 
-```typescript
-@NgModule({
-  imports: [
-    CommonModule,
-    MatToolbarModule, MatMenuModule, MatCardModule, MatDialogModule,MatIconModule,
-    MatButtonModule, MatListModule, MatCheckboxModule, MatFormFieldModule, MatInputModule
-  ],
-  exports: [
-    MatToolbarModule, MatMenuModule, MatCardModule, MatDialogModule, MatIconModule,
-    MatButtonModule, MatListModule, MatCheckboxModule,MatFormFieldModule, MatInputModule
-  ],
-  declarations: []
-})
-export class CustomMatModule { }
-```
-
-แต่กลับกันในกรณีการทำ [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component ตอน Runtime)
-
-ตัวอย่างที่ชัดเจนเลยคือ [MatDialog](https://material.angular.io/components/dialog/overview#configuring-dialog-content-via-code-entrycomponents-code-) (Material Dialog)  
+ตัวอย่างที่ชัดเจนเลยคือ [MatDialog](https://material.angular.io/components/dialog/overview#configuring-dialog-content-via-code-entrycomponents-code-) (Material Dialog) ที่เราต้องระบุ Component ที่เราสร้างไว้สำหรับเปิด Dialog ขึ้นมา
 
 ```typescript
 @NgModule({
@@ -462,7 +432,7 @@ export class CustomMatModule { }
 export class AppModule {}
 ```
 
-จริงๆแล้วการ Load Component ใน Routes (RouterModule) นั้นใช้ Component Factory เหมือนกันเพราะมัน Dynamic Load ณ Runtime เพียงแต่ว่าเราไม่ต้องระบุ Component ใน entryComponents เองเพราะ RouterModule แอบเพิ่มให้เองตอน Compile
+อีกกรณีหนึ่งคือการ Load Component ใน Routes (RouterModule) นั้นใช้ Component Factory เหมือนกันเพราะมัน Dynamic Load ณ Runtime เพียงแต่ว่าเราไม่ต้องระบุ Component ใน entryComponents เองเพราะ RouterModule แอบเพิ่มให้เองตอน Compile
 
 ```typescript
 const routes: Routes = [
@@ -485,25 +455,166 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
+มีอีกเรื่องหนึ่งที่น่าสนใจคือการที่ เราประกาศ Declarations และ Exports ComponentA, ComponentB, ComponentC ที่ ModuleA แล้วเรา Import ModuleA ใน AppModule แต่ปรากฏว่าใน Template เราไม่ได้มีการใช้ (Reference) สิ่งเหล่านั้น Angular Compiler จะถือว่าเราไม่ได้ใช้ จึงไม่รวมเข้าไปใน Bundle เพื่อทำให้มันเล็กลง ยกตัวอย่างเช่นกรณีของ Custom MatModule (Material Design Module) ที่ declarations และ exports ทุกอย่าง ถึงเราจะ import MatButtonModule, MatCardModule เข้าแต่เราไม่ได้ใช้ ใน Template ก็ไม่ต้องจ่าย Cost ของขนาด Bundle ที่ใหญ่ขึ้น
+
+```typescript
+@NgModule({
+  imports: [
+    MatToolbarModule,
+    MatMenuModule,
+    ...
+  ],
+  exports: [
+    MatToolbarModule,
+    MatMenuModule,
+    ...
+  ], // ถึงแม้จะ export ออกไป ถ้าไม่ได้ใช้ก็ไม่ต้องจ่าย Bundle Size
+  declarations: []
+})
+export class CustomMatModule { }
+```
+
 **bootstrap**
 
 ระบุ Component ที่เอาไว้สร้างตอนเริ่มรัน App (Bootstrap) โดยปกติคือ Root Component ซึ่งก็คือ AppComponent
 Bootstrap Component นั้นจะถูกเพิ่มเข้าไปใน entryComponents โดยอัตโนมัติ
 
+ตัวอย่างที่ชัดเจนเลยคือ AppModule
+
+```typescript
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+</br></br></br>
 **schemas**
 
-## NgModules Constructor Order
+ระบุ Schema ที่อนุญาตให้ใช้ใน Scope ของ NgModule โดยมีสองค่าที่ใช้ได้คือ [NO_ERRORS_SCHEMA](https://github.com/angular/angular/blob/master/packages/core/src/metadata/schema.ts#L38) และ [CUSTOM_ELEMENTS_SCHEMA](https://github.com/angular/angular/blob/master/packages/core/src/metadata/schema.ts#L29)
 
-## Type of Modules
+**NO_ERRORS_SCHEMA - บอก Angular Compiler ว่าอนุญาตทุก Element ทุก Property เป็นอะไรก็ได้**
 
-## Lazy Load Module
+สำหรับการทำ [Shallow Testing](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d) เราต้องการจะ Test Angular Template โดยละ Dependencies ไว้ในฐานที่เข้าใจ ของ Component (ไม่ต้องสนใจ Template Error ว่า Require อะไร)
+เราสามารถ Configure Module เพื่อบอก Angular Component บางตัวที่เราสร้างให้คิดซะว่าเป็นแค่ DOM ธรรมดา
 
-## CommonModule, BrowserModule, RouterModule, SharedModule
-## Best Practices of NgModules
+ตัวอย่างด้านล่างคือมี Component ชื่อ ConversationsCmp ที่เราต้องการเทสว่า มัน Render ข้อความข้างในถูกต้องซึ่งใน template นั้นใช้ `<mat-card></mat-card>` หรือ MatCardComponent  ซึ่งเราไม่ได้สนใจหน้าตาความสวยงามของมัน เราต้องการเช็คว่ามีข้อความข้างในและถูกต้องไหม
 
-## Ivy Spec
+ตอนสร้าง TestBed เลย Configure Module โดยใส่ schemas `NO_ERRORS_SCHEMA` ไม่ต้องฟ้อง Error จากการไม่ import `MatCardModule` ให้ Angular Compiler เข้าใจ Scope ของ `MatCardComponent` ด้วย แล้วก็รันเทสตามปกติ
 
-## Angular ในยุคที่ไม่มี NgModules
+```html
+<mat-card *ngFor="let c of conversations | async" [routerLink]="[c.id]">
+  <h3>
+    <a [routerLink]="[c.id]">{{c.title}}</a>
+  </h3>
+  <p>
+    <span class="light">{{c.user.name}} [{{c.user.email}}]</span>
+  </p>
+</mat-card>
+```
 
+```typescript
+@Component({templateUrl: 'conversations.html'})
+export class ConversationsCmp {
+  folder: Observable<string>;
+  conversations: Observable<Conversation[]>;
+
+  constructor(route: ActivatedRoute) {
+    this.folder = route.params.pluck<string>('folder');
+    this.conversations = route.data.pluck<Conversation[]>('conversations');
+  }
+}
+```
+
+```typescript
+describe('ConversationsCmp', () => {
+  let params: BehaviorSubject<string>;
+  let data: BehaviorSubject<any>;
+
+  beforeEach(async(() => {
+    params = of({
+      folder: 'inbox'
+    });
+
+    data = of({
+      conversations: [
+        { id: 1, title: 'On the Genealogy of Morals by Nietzsche', user: {name: 'Kate', email: 'katez@example.com'} },
+        { id: 2, title: 'Ethics by Spinoza', user: {name: 'Corin', email: 'corin@example.com'} }
+      ]
+    });
+
+    TestBed.configureTestingModule({
+      declarations: [ConversationsCmp],
+      providers: [
+        { provide: ActivatedRoute, useValue: {params, data} }
+      ],
+      // Tells the compiler not to error on unknown elements and attributes
+      schemas: [NO_ERRORS_SCHEMA]
+    });
+    TestBed.compileComponents();
+  }));
+
+  it('updates the list of conversations', () => {
+    const f = TestBed.createComponent(ConversationsCmp);
+    f.detectChanges();
+
+    expect(f.debugElement.nativeElement).toHaveText('inbox');
+    expect(f.debugElement.nativeElement).toHaveText('On the Genealogy of Morals');
+    expect(f.debugElement.nativeElement).toHaveText('Ethics');
+
+    params.next({
+      folder: 'drafts'
+    });
+
+    data.next({
+      conversations: [
+        { id: 3, title: 'Fear and Trembling by Kierkegaard', user: {name: 'Someone Else', email: 'someonelse@example.com'} }
+      ]
+    });
+    f.detectChanges();
+
+    expect(f.debugElement.nativeElement).toHaveText('drafts');
+    expect(f.debugElement.nativeElement).toHaveText('Fear and Trembling');
+  });
+});
+```
+
+**CUSTOM_ELEMENTS_SCHEMA - บอก Angular Compiler ว่าอนุญาต Non-Angular Elements และ Properties ด้วย Dash case ซึ่ง Dash Case เป็น Convention ของ Custom Elements**
+
+โดยปกติแล้ว Angular จะเข้าใจว่า Custom HTML Tag เป็น Angular Component หมดเวลาเจออะไรแปลกๆไม่รู้จักใน Scope ก็เด้ง error ในกรณีที่เราต้องการใช้ Custom Element เลยต้องบอกว่า Angular Compiler เราจะใช้ Custom Element นะไม่ต้องงง จากนั้นมันจะ Compile ผ่าน
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // <-- บอกตรงนี้,
+  imports: [BrowserModule, ReactiveFormsModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+[ศึกษาเรื่อง Custom Element ใน Angular ต่อ](https://vaadin.com/tutorials/using-web-components-in-angular)
+
+จบไปแล้วสำหรับ NgModule เบื้องต้น ยังมีอีกหลายเรื่องใน NgModule ที่คุยกันต่อได้เช่น
+
+- ลำดับการสร้างตอนเริ่ม Bootstrap App ของ NgModule
+- Feature Module คืออะไรกันนะ?
+- ประเภทของ Feature Module?
+- Lazy-Loading Module คืออะไรกัน?
+- NgModule พื้นฐานเช่น RouterModule, HttpClientModule, FormsModule
+
+ฝากแชร์ต่อให้เพื่อนพี่น้อง ชาว Angular ได้อัพเดทกัน
+
+แล้วเจอกันบทความหน้า สวัสดีครับ
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="สัญญาอนุญาตของครีเอทีฟคอมมอนส์" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />บทความนี้ใช้<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">สัญญาอนุญาตของครีเอทีฟคอมมอนส์แบบ แสดงที่มา-ไม่ใช้เพื่อการค้า-อนุญาตแบบเดียวกัน 4.0 International</a>.
