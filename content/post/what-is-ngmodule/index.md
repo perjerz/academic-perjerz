@@ -605,9 +605,46 @@ export class AppModule {}
 
 [ศึกษาเรื่อง Custom Element ใน Angular ต่อ](https://vaadin.com/tutorials/using-web-components-in-angular)
 
+## สรุป NgModule
+
+1. อธิบายวิธีการ Compile Components, Templates, Directives, Pipes ให้กับ Angular Compiler
+2. ระบุ Components, Directives, Pipes ให้เป็นสาธารณะ (Public) ผ่าน metadata ที่มีชื่อว่า **exports** เพื่อให้ Module อื่น ที่ import Module นี้เรียกใช้งานได้
+3. เพิ่ม Services หรือ Providers เพื่อใช้ Dependency Injection ใน Component ได้
+
+ก่อนจบบทความนี้ไป ผมมีคำถามให้ทุกท่านทายคำตอบ คำถามมีอยู่ว่า ตอนนี้ Angular App ของเราได้ทำการแบ่ง Feature Module ไว้เรียบร้อยแล้ว CEO ต้องการให้ Angular App ทำให้ช่องกรอกเบอร์โทรศัพท์ mask เบอร์จาก 0999999999 เป็น 099-999-999 **เหมือนกันทุกช่อง input ใน App** เราจึง Search หา Library ใน Google แล้วพบตัวนึงที่มีชื่อว่า [ngx-mask](https://github.com/JsDaddy/ngx-mask) โอเคเรา `npm install --save ngx-mask` เรียบร้อย
+
+ใน ngx-mask github ได้แนะนำวิธีการ import Module ไว้ด้านล่าง
+
+```typescript
+import { NgxMaskModule } from 'ngx-mask'
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>);
+
+@NgModule({
+  (...)
+  imports: [
+    NgxMaskModule.forRoot(options)
+  ]
+  (...)
+})
+```
+
+คำถามคือเราจะต้อง `import NgxMaskModule` ยังไงและที่ไหนบ้าง
+
+1. import NgxMaskModule.forRoot(options) ที่ AppModule ที่เดียวจบใช้ได้ทั้ง App
+2. import NgxMaskModule.forRoot(options) ที่ AppModule และ ทุก Feature Module ที่เราแบ่งไว้
+3. import NgxMaskModule.forRoot(options) ที่ AppModule และ import NgxMaskModule ทุก Feature Module
+4. import NgxMaskModule ที่ AppModule และ ทุก Featured Module
+5. import NgxMaskModule ที่ AppModule และ import NgxMaskModule.forRoot(options) ทุก Feature Module
+6. import NgxMaskModule ที่ AppModule ที่เดียวจบใช้ได้ทั้ง App
+
+แล้วถึงสามารถใช้ `<input type='text' mask='000-000-000'>` หรือ `<span>{{phone | mask: '000-000-0000'}}</span>`ได้
+
+แล้วจะมาเฉลยในบทความต่อไปของ NgModule
+
 จบไปแล้วสำหรับ NgModule เบื้องต้น ยังมีอีกหลายเรื่องใน NgModule ที่คุยกันต่อได้เช่น
 
-- ลำดับการสร้างตอนเริ่ม Bootstrap App ของ NgModule
+- ลำดับการสร้างตอน Bootstrap App ของ NgModule
 - Feature Module คืออะไรกันนะ?
 - ประเภทของ Feature Module?
 - Lazy-Loading Module คืออะไรกัน?
