@@ -58,7 +58,7 @@ export class AppModule {}
 ```
 
 สิ่งสำคัญคือ **NgModule** มีไว้เพื่ออะไร
-NgModule ใช้ metadata
+NgModule ใช้ metadata เพื่อ
 
 1. อธิบายวิธีการ Compile Components, Templates, Directives, Pipes ให้กับ Angular Compiler
 2. ระบุ Components, Directives, Pipes ให้เป็นสาธารณะ (Public) ผ่าน metadata ที่มีชื่อว่า **exports** เพื่อให้ Module อื่น ที่ import Module นี้เรียกใช้งานได้
