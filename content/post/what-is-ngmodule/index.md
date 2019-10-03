@@ -254,7 +254,7 @@ Component (**CompanyCardComponent, CompanyListComponent**) และ Pipes (**Te
 </br></br></br>
 **providers**
 
-หลังจาก Angular Version 6.0 เราสามารถ Singleton Service ด้วยการใส่ `providedIn: 'root'` ใน metadata ของ `@Injectable()` เพื่อบอก Angular ให้ Register Service นี้ที่ Application Root ซึ่งวิธีนี้ทำให้ Compiler สามารถ Tree-shaking Services ที่ไม่ได้ใช้ออก
+หลังจาก Angular Version 6.0 เราสามารถสร้าง Singleton Service ด้วยการใส่ `providedIn: 'root'` ใน metadata ของ `@Injectable()` เพื่อบอก Angular ให้ Register Service นี้ที่ Application Root ซึ่งวิธีนี้ทำให้ Compiler สามารถ Tree-shaking Services ที่ไม่ได้ใช้ออก
 
 ```typescript
 @Injectable({
@@ -270,7 +270,7 @@ export class CompanyService {
 }
 ```
 
-แต่ก่อนหน้านั้น 6.0 ต้อง register ที่ระดับ Module (หรือ Component Level) ใน providers
+แต่ก่อนหน้า Version 6.0 ต้อง register ที่ระดับ Module (หรือ Component Level) ใน providers
 
 ```typescript
 @NgModule({
@@ -344,8 +344,9 @@ export class AppModule { }
 export class AppModule { }
 ```
 
-ถูกต้องแล้วครับ ✅ มันใช้สำหรับ Configure Value ใน Token, Service เพื่อตอนที่เราจะใช้ Dependency Injection ใน Component จะได้ค่านั้นไปใช้
-ตัวอย่างเช่นการ Setup AngularFire จะทำให้ Angular App คุยกับ Firebase 🔥 เราจึงต้องจำเป็นระบุ Config
+ถูกต้องแล้วครับ ✅ มันใช้สำหรับ Configure Value ใน Token, Service เพื่อตอนที่เราจะใช้ Dependency Injection ใน Component ได้ค่านั้นไปใช้
+
+ตัวอย่างเช่นการ Setup AngularFire ทำให้ Angular App คุยกับ Firebase 🔥 เราจึงต้องจำเป็นระบุ Config
 
 ด้านล่างเป็น Code AngularFireModule จาก @angular/fire จะเห็นได้ว่ามันรับค่าผ่าน parameters แล้วเอาไป config ให้กับ providers - FirebaseOptionsToken และ FirebaseNameOrConfigToken ไปใช้
 
@@ -377,7 +378,7 @@ export class AngularFireModule {
 
 [AngularFireModule ฉบับเต็ม](https://github.com/angular/angularfire2/blob/master/src/core/firebase.app.module.ts#L58)\
 
-แล้วเมื่อเราจะใช้ Service ของ Firebase เช่น AngularFireDatabase, AngularFireAuth เราจึงสามารถใช้มันได้เลยโดยไม่ต้องมาส่งค่า apiKey, authDomain, databaseURL ซ้ำอีกรอบเพราะมันจะไป Resolve Value จาก Token ที่ Configure (Register) ไว้ที่ Module แล้ว
+แล้วเมื่อเราใช้ Service ของ Firebase เช่น AngularFireDatabase, AngularFireAuth เราจึงสามารถใช้มันได้เลยโดยไม่ต้องมาส่งค่า apiKey, authDomain, databaseURL ซ้ำอีกรอบเพราะมันจะไป Resolve Value จาก Token ที่ Configure (Register) ไว้ที่ Module แล้ว
 
 ```typescript
 @Injectable()
@@ -404,7 +405,7 @@ export class AppGuard implements CanActivate {
 
 ไว้ระบุ Component ที่จะต้อง Compile บอก Angular Compiler ว่าเราจะใช้ Component เหล่านี้แน่ๆ สร้าง Component Factory ทำ Dynamic Load ณ Run-time (Imperatively) ไม่ต้อง Tree Shake ลบ Component นี้ออกไป
 
-โดยปกติแล้ว Component ที่เราใช้ใน Template `<company-card></company-card>` Compiler มันรู้ได้เลยจากการใช้ (Reference) จึงสามารถ Inline Instantiation ได้เลย (Statically, Declaratively)
+โดยปกติแล้ว Component ที่เราใช้ใน Template `<company-card></company-card>` Compiler มันรู้ได้เลยจากการใช้ (Reference) จึงสามารถ Inline Instantiation ได้ (Statically, Declaratively)
 
 แต่กลับกันในกรณีการทำ [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component ตอน Runtime) ซึ่งต้องใช้ entryComponents
 
@@ -583,9 +584,9 @@ describe('ConversationsCmp', () => {
 });
 ```
 
-**CUSTOM_ELEMENTS_SCHEMA - บอก Angular Compiler ว่าอนุญาต Non-Angular Elements และ Properties ด้วย Dash case ซึ่ง Dash Case เป็น Convention ของ Custom Elements**
+**CUSTOM_ELEMENTS_SCHEMA - บอก Angular Compiler ว่าอนุญาต Non-Angular Elements และ Properties ด้วย Dash Case ซึ่ง Dash Case เป็น Convention ของ Custom Elements**
 
-โดยปกติแล้ว Angular จะเข้าใจว่า Custom HTML Tag เป็น Angular Component หมดเวลาเจออะไรแปลกๆไม่รู้จักใน Scope ก็เด้ง error ในกรณีที่เราต้องการใช้ Custom Element เลยต้องบอกว่า Angular Compiler เราจะใช้ Custom Element นะไม่ต้องงง จากนั้นมันจะ Compile ผ่าน
+โดยปกติแล้ว Angular จะเข้าใจว่า Custom HTML Tag เป็น Angular Component หมดเวลาเจออะไรแปลกๆไม่รู้จักใน Scope ก็เด้ง error ในกรณีที่เราต้องการใช้ Custom Element เลยต้องบอกว่า Angular Compiler เราจะใช้ Custom Element นะไม่ต้อง งง จากนั้นมันจะ Compile ผ่าน
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -659,12 +660,12 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>);
 
 แล้วจะมาเฉลยในบทความต่อไปของ NgModule
 
-จบไปแล้วสำหรับ NgModule เบื้องต้น ยังมีอีกหลายเรื่องใน NgModule ที่คุยกันต่อได้เช่น
+จบไปแล้วสำหรับ NgModule เบื้องต้น 🔚 ยังมีอีกหลายเรื่องใน NgModule ที่คุยกันต่อได้เช่น 💬
 
 - ลำดับการสร้างตอน Bootstrap App ของ NgModule
 - Feature Module คืออะไรกันนะ? 🤔
 - ประเภทของ Feature Module
-- Lazy-Loading Module คืออะไรกัน? 🤔
+- Lazy-Loading Module คืออะไรกัน ❓
 - NgModule พื้นฐานเช่น RouterModule, HttpClientModule, FormsModule
 
 ฝากแชร์ 🔗 ต่อให้เพื่อนพี่น้อง ชาว Angular ได้อัพเดทกัน
