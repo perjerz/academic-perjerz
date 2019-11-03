@@ -58,9 +58,10 @@ ng add @angular/material
 - ใส่ Font Roboto ให้ใน index.html (display: swap ให้ด้วย)
 - ใส่ Material Design Icon ให้ใน index.html
 - เพิ่ม global css style ลบ margin จาก body ออก, height: 100% ให้กับ html, body และตั้ง Roboto Font เป็น Default
-อะไรมันจะสะดวก สบายเยี่ยงนี้ 😎
 
 [ที่มา](https://material.angular.io/guide/getting-started#install-angular-material)
+
+อะไรมันจะสะดวก สบายเยี่ยงนี้ 😎
 
 ![Angular Material](./angular-material.jpg)
 
@@ -120,7 +121,9 @@ firebase logout
 - เพิ่มไฟล์ firebase.json และ .firebaserc เพื่อใช้สำหรับการ Deploy เว็บของเราไปที่ Firebase Hosting
 - แก้ไขไฟล์ angular.json โดยการเพิ่ม Target deploy สำหรับ Firebase Hosting เข้าไป
 
-จบไปแล้วสำหรับการ Setup Project เรามาลอง deploy project ขึ้น firebase hosting กันด้วยคำสั่ง
+จบไปแล้วสำหรับการ Setup Project 
+
+เรามาลอง deploy project ขึ้น Firebase Hosting ด้วยคำสั่ง
 
 ```bash
 # ng run ชื่อโปรเจค:deploy
@@ -140,7 +143,7 @@ ng run firebase-ivy-live-feed:deploy
 - AngularFirestoreModule สำหรับฐานข้อมูล Realtime
 - AngularFireStorageModule สำหรับการเก็บไฟล์รูป
 
-- Authenticatation
+- Authentication
 - Firestore
 - Realtime
 - Upload Fire
