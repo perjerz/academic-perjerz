@@ -28,7 +28,7 @@ interests:
 
 education:
   courses:
-  - course: B.Eng in Computer Engineering, 3.72, First class honours
+  - course: B.Eng in Computer Engineering
     institution: King Mongkut's University of Technology Thonburi (KMUTT)
     year: 2016 - 2013
 
