@@ -68,4 +68,4 @@ email: ""
 
 Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise softwares such as bank and energy companies. He contribute open source project namely who-use-angular-in-thailand. He is also Angular Thailand speaker and organizer.
 
-He extremely enjoys learning new things. He is now focusing on pure functional programming.
+He extremely enjoys learning new things. He is now focusing on AWS Infrastructure via Qwiklabs and Category Theory via Bartosz Milewski.
