@@ -1,15 +1,13 @@
 ---
-title: Recap Keynote Angular Connect Day 1
-date: 2019-09-20
-lastmod: 2019-09-22
+title: Angular ❤ Firebase
+date: 2019-11-01
+lastmod: 2019-11-03
 image:
   placement: 3
-  caption: 'Image credit: [**@ankitsharma_007**](https://twitter.com/ankitsharma_007/status/1174607831263252480)'
+  caption: ''
 draft: false
 highlight: false
 ---
-
-## Angular ❤ Firebase
 
 🅰️ ❤️ 🔥
 
@@ -27,7 +25,7 @@ Angular นั้นรัก Firebase อย่างกับพี่น้�
 npm install -g @angular/cli@next
 ```
 
-[Install Angular](./angular-next.png)
+![Install Angular](./angular-next.jpg)
 
 สร้างโปรเจคด้วย ng new ไม่ใส่ Route เลือก style เป็น scss
 
@@ -35,7 +33,7 @@ npm install -g @angular/cli@next
 ng new firebase ivy live-feed --routing=false --style=scss
 ```
 
-[Angular New Project](./ng-new.jp2)
+![Angular New Project](./ng-new.jpg)
 
 ลง Angular​ Material ด้วยคำสั่ง
 
@@ -59,13 +57,64 @@ ng add @angular/material
 
 [ที่มา](https://material.angular.io/guide/getting-started#install-angular-material)
 
-[Angular Material](./angular-material.jpg)
+![Angular Material](./angular-material.jpg)
+
+ต่อไปเป็นการสร้าง Firebase โปรเจค
+เข้าเว็บ [https://console.firebase.google.com](https://console.firebase.google.com)
+
+![console Firebase website](./console-firebase-website.jpg)
+
+สร้างและตั้งชื่อโปรเจค
+![Create Firebase Project](./firebase-create-project.jpg)
+
+เปิด Google Analytics
+![Enable Google Analytics](./firebase-enable-google-analytics.jpg)
+
+เลือก Google Analytics Account
+![Choose Google Analytics Account](./choose-google-analytics-account.jpg)
 
 ต่อไปลง AngularFire ด้วยคำสั่ง
 
 ```shell
 ng add @angular/fire
 ```
+
+ปรากฏว่า error
+
+```shell
+HTTP Error: 401, The entered credentials were incorrect.
+```
+![Error HTTP 401](./angular-fire-error-http.jpg)
+
+อ๋อผมเคยลง firebase-tools ไว้นานมาแล้วตั้งแต่เวอร์ชั่น 3.9.1 ตอนนี้เวอร์ชั่น และไม่ได้ใช้มานาน Token น่าจะหมดอายุ ผมเลย Logout ด้วยคำสั่ง
+
+```shell
+firebase logout
+```
+
+แล้วทำการ ng add ใหม่ แล้วพบว่าสามารถทำงานได้ปกติ และมี x-prompt ขึ้นมา
+
+- Firebase ขอเก็บข้อมูลการใช้ CLI ได้ไหม ซึ่งผมไม่ให้ 55
+- ให้เลือก Google Account สำหรับการมอบสิทธิให้ Firebase CLI เข้าถึง Project ใน Account นั้นๆ (Google Cloud Project ด้วย)
+
+![Firebase Popup](firebase-auth-popup.jpg)
+![Firebase Access](./firebase-auth-access.jpg)
+
+- หลังจากนั้นเราได้ Token ให้ Copy ไปใส่ใน CLI
+
+![Firebase Token](./firebase-auth-code.jpg)
+![AngularFire Copy Token](./angular-firebas-copy-token.jpg)
+
+- เลือก Firebase Project ที่เราเพิ่งสร้างขึ้นมา
+
+![Select Firebase Project](./angular-fire-select-project.jpg)
+
+จากนั้น Schematics ของ @angular/fire จะทำการ
+
+- เพิ่ม Dependency @angular/fire และ firebase ใน package.json
+- เพิ่มไฟล์ firebase.json และ .firebaserc เพื่อใช้สำหรับการ Deploy เว็บของเราไปที่ Firebase Hosting
+- แก้ไขไฟล์ angular.json โดยการเพิ่ม Target deploy สำหรับ Firebase Hosting เข้าไป
+
 
 - Authenticatation
 - Firestore
@@ -76,12 +125,13 @@ ng add @angular/fire
 - ng deploy
 https://github.com/angular/angularfire/blob/master/docs/deploy/getting-started.md
 
-
 จบแล้ว เป็นไงกันบ้างสำหรับการอัพเดทครั้งนี้ ฝากแชร์ต่อให้เพื่อนพี่น้อง ชาว Angular ได้อัพเดทกัน
 
 แล้วเจอกันที่งาน Firebase Dev Day วันที่ 9 พฤศจิกายน 2019 ที่ Academic Bangkok, True Digital Park
 
-[Firebase Dev Day](./index.md)
-https://dev.wi.th/event/firebasedevday2019
+![Firebase Dev Day Speakers](./firebase-dev-day-speakers.jpg)
+![Firebase Dev Day Schedule](./firebase-dev-day-schedule.png)
+
+[https://dev.wi.th/event/firebasedevday2019](https://dev.wi.th/event/firebasedevday2019)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="สัญญาอนุญาตของครีเอทีฟคอมมอนส์" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />บทความนี้ใช้<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">สัญญาอนุญาตของครีเอทีฟคอมมอนส์แบบ แสดงที่มา-ไม่ใช้เพื่อการค้า-อนุญาตแบบเดียวกัน 4.0 International</a>.
