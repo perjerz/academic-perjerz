@@ -101,7 +101,7 @@ firebase logout
 ![Firebase Popup](firebase-auth-popup.jpg)
 ![Firebase Access](./firebase-auth-access.jpg)
 
-- หลังจากนั้นเราได้ Token ให้ Copy ไปใส่ใน CLI
+- หลังจากนั้นเราได้ Authorization Code ให้ Copy ไปใส่ใน CLI
 
 ![Firebase Token](./firebase-auth-code.jpg)
 ![AngularFire Copy Token](./angular-firebas-copy-token.jpg)
