@@ -124,120 +124,134 @@ Jia Li maintains zone.js และ Joost maintains compiler, ngcc Thanks to all 
 
 Next stories will be technical updates from Igor Minar.
 
-TODO:
-Release Cycle ปกติแล้ว Angular จะมีการอัพเดท Major Version ทุก 6 เดือน นอกจากฟีเจอร์ใหม่แล้ว สิ่งที่สัญญาตลอดมาคือ Backward Compatibility เพราะฉันรู้ว่าฉันผิดไปแล้วจาก AngularJS (1) -> Angular (2+) 🤞 และอัพเกรดเวอร์ชั่นที่ง่ายดายราวกับเวทย์มนต์ 🧙 (ng update)
-เดือนพฤษภาคมที่ผ่านมาได้ปล่อย Version 8 ไปแล้ว
-อีกไม่กี่สัปดาห์เราก็จะเข้าสู่ Version 9 กันในช่วงประมาณพฤศจิกายน โดยต่อไปจะเป็นการแนะนำฟีเจอร์เด็ดๆใน Version 8
+The major release cycle of Angular is every 6 months.
+Last majaor release was on May for version 8. The upcomming release is in November for version 9.
 ![Release Cycle](./release-cycle.JPG)
 
+Let's talk about new feature so far.
 
-Differential Loading คือการที่ Apps ของเราถูก Build เป็น 2 Bundles - Bundles แรกสำหรับ Browser รุ่นใหม่ Polyfill ไม่มาก Bundle เล็ก และ Bundles สองสำหรับ Browser โบราณ ที่ Polyfill จัดเต็มเลยใหญ่กว่า
+Differential Loading is building apps with two bundels - for modern browsers with less polyfills and legacy browsers with several polyfills.
 
-ซึ่งก่อนจะมี Differential Loading นั้น Angular CLI ทำการ Build เป็น Bundle เดียวโดยที่ polyfill ขึ้นกับ browserlist file หมายความว่าถ้าใช้ Browser สมัยใหม่ก็อาจจะโหลด polyfill ที่ไม่ต้องใช้เพื่อ support Browser เก่าๆ อยู่ดี
 ![Differential Loading](./differential-loading.JPG)
 
-หลังจากที่มี Differential Loading เว็บไซต์ angular.io ลดขนาดไป 41 Kb คิดเป็น 10%
+With differential loading, angular.io size has been decreased 41 Kb (10%)
 
-สำหรับเว็บไซต์อื่นๆที่อัพเดทเป็นเวอร์ชั่น 8 จากรายงานแจ้งว่าลดไป 7-20%
+For most of the webs with Angular 8, It has been decreased for 7 - 20%.
+
 ![Differential Loading Save](./differential-loading-save.JPG)
+
 
 ประเด็นมันมีอยู่ว่าสมัยก่อนมัน Build 2 รอบสำหรับ Browser รุ่นใหม่ และรุ่นโบราณ ทำให้ Build ช้า (รูปแรก) แต่ได้แก้เป็นการ Downlevel แทนทำให้ Build เร็วขึ้น 45% (รูปที่สอง)
 ![Differential Loading Build 2 Times](./differential-loading-build-2-times.JPG)
 ![Differential Loading Build 2 Times](./differential-loading-build-1-time.JPG)
 
-คำสั่ง ng deploy สำหรับ deploy Angular app ไปยัง Host ต่างๆ ไม่ว่าจะเป็น Firebase, Azure, Netlify และ Github Pages โดยก่อนใช้คำสั่งต้อง ng add ก่อน
+ng deploy is to deploy Angular app to various hosts such as Firebase, Azure, Netlify, and Github Pages.
+
 ![ng deploy](./ng-deploy.JPG)
 
-Redesign หน้าตาของ app หลังจาก ng new ให้สวยงามและมีประโยชน์มากขึ้น
+The Angular hello world app by ng new has been redesigned. It looks cool!
 ![ng new](./ng-new.JPG)
 
-นอกจากนี้ยังมีฟีเจอร์
+There are more features in Angular 8.
 
-- ใช้ Lazy Loading ด้วย import() syntax ตาม Standard
-- Custom Builders สำหรับปรับปรุงหรือเพิ่ม Step Build เช่นใช้ Webpack ทำอะไรเพิ่มเติม
+- Lazy loading with import() syntax following standard
+- Custom Builders for customize build steps
 - Web Worker Bundling
-- AngularJS $location support ใช้สำหรับทำ hybrid AngularJS และ Angular โดยใช้ Router ตัวเดียวกัน
-- ปรับปรุงการสนับสนุนของ IDE ให้ดีขึ้น
-- นอกจาก Tour of heroes แล้ว ตอนนี้ได้เพิ่ม ตัวอย่าง e-commerce เข้าไปสำหรับมือใหม่
+- AngularJS $location support to do hybrid AngularJS and Angular with same router
+- Better IDE support
+- New tutorial - Tour of heros and E-commerce for beginners
 
 ![8.x Features](./8-features.JPG)
 
-Ivy ทำให้ Debug ง่ายขึ้นโดยสามารถเข้า Console ของ Chrome Dev Tools แล้วพิมพ์คำสั่ง ng.getComponent($0) เพื่อเข้าถึง Component และเรียกใช้ Method ใน Component ณ Runtime นั้นได้เลย โหดๆ 👍👍
+Ivy makes debugging easier by using Console Tabs in Chrome Dev Tools with ng.getComponent($0) command to access Component directly and call methods during runtime. Awesome 👍👍
+
 ![Ivy Debugging](./ivy-debugging.JPG)
 
-เวอร์ชั่นล่าสุด v9.0.0-next.6 นั้นมีรายละเอียดใหม่ในเรื่องของ Bundle Size
+With Angular v9.0.0-next.6, The small, medium, large app sizes are decreased 30%, 10%, 40% respectively.
 
-App ขนาดเล็ก Build แล้วมีขนาดลดลง 30%, ขนาดกลางเพิ่มขึ้น 10%, ขนาดใหญ่ลดลง 40%
 ![Ivy Size](./ivy-size.JPG)
 
-Runtime Ivy นั้นใช้ Concept คล้ายๆ Assembly ที่มี Instruction Sets
+Ivy runtime uses the Assembly concept that has instruction sets.
 
-โดยผมจะยกตัวอย่างใน Ivy Instruction เช่น
+There are many ivy Instructions.
 
-- Ivy Instruction ของการเปิดปิด tag จากรูปด้านบน โค๊ดที่เราเขียนคือเปิดปิด tag div คือ elementStart, elementEnd (ตารางฝั่งขวา)
-- Ivy Instruction ของการใส่ข้อความ hello ลงใน tag คือ text
-- Ivy Instruction ของการทำ Text Interpolotion {{name}} คือ textInterpolate
+- Ivy Instruction opening and ending tag - elementStart, elementEn
+- Ivy Instruction adds hello text into tag - text
+- Ivy Instruction for text interpolotion {{name}} - textInterpolate
 
-และอื่นๆอีกมากมาย โดยปกติแล้ว Instruction ทั้งหมดนี้จะถูกใส่เข้าไปใน Runtime ตามฟีเจอร์ที่เราใช้ใน Code อันไหนไม่ได้ใช้ ก็จะไม่ถูกเข้าไปใน Runtime
+and so on.
+
+Each feature and each instruction that we use ar e included in runtime. If not, it will be not included.
 ![Ivy Instructions Basic](./ivy-instructions-basic.JPG)
 
-ต่างจาก View Engine หรือ Render v2 ที่ใช้ Data Structure แปลงตอน Runtime โดยที่
-Runtime ต้องมีทุกฟีเจอร์ของ Angular และไม่สามารถ Tree Shake Feature ที่ไม่ได้ใช้ออกไปได้
-จะเห็นได้ว่า Ivy นั้นสามารถถอด Feature ที่ไม่ได้ใช้ส่งผลให้ Bundle Size เล็กกว่าได้
-ศึกษาเพิ่มเติมได้ที่ Youtube ด้านล่าง
+View Enginer or Render v2 uses data structures converting during runtime, so the runtime needs all features, and impossible to tree shake those features that we don't use it.
+
+Ivy can tree-shake the unused features, thus, the bundle size is smaller.
+
+You can learn more in this Youtube video.
 
 {{< youtube isb5Ef6yI48 >}}
 
-ขณะนี้มี 150 Ivy Instructions คิดว่ายิ่งมีเยอะยิ่งดีเพื่อให้เป็น Unit ที่เล็กที่สุดในการที่ถอดออกไปได้เมื่อไม่ได้ใช้
+There are 150 ivy instructions.
+More Ivy instructions, more tree-shaking unused features.
 
-โดย Ivy จะเป็น Default ใน Angular Version 9
+Ivy will be default in Angular Version 9
 ![Ivy Instructions](./ivy-instructions.JPG)
 
-Library ใน npm นั้นส่วนใหญ่ถูก Compile เพื่อ Support View Engine
+The majority of libraries in npm ecosystem are compiled to support View Engine.
 
-Ivy มี ngcc (Angular Compatibility Compiler) สำหรับแปลง Library ที่เคยถูก Compile ด้วย View Engine ให้เป็น Ivy Code
-[อ่าน Compiler Spec เพิ่มเติมได้ที่นี่](https://github.com/angular/angular/blob/master/packages/compiler/design/architecture.md#ngcc-operation)
+Ivy has ngcc (angular compatibility compiler) to convert View Engine libraries to Ivy code.
+[Read more about Compiler Spec](https://github.com/angular/angular/blob/master/packages/compiler/design/architecture.md#ngcc-operation)
+
 ![ngcc](./ngcc.JPG)
 
-Library ที่เป็น Ivy อยู่แล้วก็สามารถใช้ได้เลยไม่ต้อง Compile ซ้ำเพื่อใช้กับ Ivy App
-ส่วน Library ที่เป็น View Engine ก็ต้องใช้ ngcc  Compile ก่อน
+Libraries compiled by Ivy work fine with Ivy apps.
+For View Engine libraries, they need to be recompiled with ngcc. 
+
 ![Library Compatibility](./ngcc-apps-and-libs.JPG)
 
-Version 9 ตอน Build Apps จะเป็น Ivy โดย Default แต่สำหรับ Libraries จะยังคงเป็น View Engine
+In version 9, building apps are Ivy by default but building libraries are still View Engine.
 
-Version 10 มีแนวโน้มที่ Instruction Sets นั้น Stable เลยเริ่มทำการ Build Library เป็น Ivy เพื่อที่จะทำให้ ngcc มีบทบาทน้อยลง
+In Version 10, the instruction Sets tend to be stable.
+Building libraries will be Ivy to use ngcc less.
 
-Version 11 ngcc จะเป็นแค่ backup สำหรับ library เก่าๆที่เป็น View Engine
+In Version 11 ngcc will be just a backup for legacy libraries that still use View Engine.
+
 ![Incremental Transition](./incremental-transition.JPG)
 
-จากผลการทดสอบ 173 Library ชื่อดังทั้งหมด ปรากฏว่า 85% ใช้ ngcc แล้วเข้ากันได้กับ Ivy
-ทุกท่านสามารถดูผลและทดสอบ Library ของท่านได้ที่ Github [https://github.com/angular/ngcc-validation](https://github.com/angular/ngcc-validation)
+The report told that 85% of 173 well-known libraries are compatible with Ivy.
+
+You can see the result in Github. [https://github.com/angular/ngcc-validation](https://github.com/angular/ngcc-validation)
 ![ngcc-validation](./ngcc-validation.JPG)
 
-อย่างไรก็ดี ทุกท่านสามารถเลือกออก (Opt-out) จาก Ivy จนถึง Version 10
+Everyone can opt-out Ivy until Version 10.
 
-ถ้าอยากลอง Ivy ตอนนี้ คำสั่งนี้เลย
+If you want to try Ivy, use this command.
 
 `ng update @angular/cli@next @angular/core@next`
 
-ต่อไปจะเป็นการ Demo Feature ที่ Ivy ทำให้เกิดขึ้นได้ อันแรกคือ
+Ivy has enabled a lot of new features.
 
 Style Merging [https://github.com/matsko/ivy-styling-demo](https://github.com/matsko/ivy-styling-demo)
 
-Component Lazy Loading [https://github.com/IgorMinar/ivy-lazy-load-component](https://github.com/IgorMinar/ivy-lazy-load-component) ซึ่งนำไปสู่ Progressive Rehydration ศึกษาต่อได้ที่วีดีโอด้านล่าง
+Component Lazy Loading [https://github.com/IgorMinar/ivy-lazy-load-component](https://github.com/IgorMinar/ivy-lazy-load-component) leading to Progressive Rehydration
+
+Learn more about Progressive Rehydration by Youtube below.
 
 {{< youtube FiVw6zjgw24 >}}
 
-สุดท้ายแล้ว เกิด Ecosystem ใหม่สำหรับ
+Finally, there are new ecosystems.
 
-- ng add เพื่อ Add Library
-- ng update อัพเดท Apps และ Library
-- builders มีคนทำ Custom Builders ใหม่ๆ เช่น ngx-build-plus
+- ng add for adding libraries
+- ng update for updating apps and libraries
+- Custom Builders such as ngx-build-plus
 
 ![New Ecosystem](./new-ecosystem.JPG)
 
-จบแล้ว เป็นไงกันบ้างสำหรับการอัพเดทครั้งนี้ ฝากแชร์ต่อให้เพื่อนพี่น้อง ชาว Angular ได้อัพเดทกัน
+End. What do you think about new updates from Angular?
 
-แล้วเจอกันบทความหน้า สวัสดีครับ
+Please share this blog for other Angular members.
+
+See you next article. Bye.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This article uses<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.
