@@ -115,7 +115,7 @@ Now, there are 1500+ Angular projects.
 Firebase and Google Cloud Platform also use Angular.
 ![Angular Projects in Google](./angular-projects-in-google.JPG)
 
-There are 105 Angular GDE around the world.
+There are 105 Angular GDEs around the world.
 ![Angular GDE](./Angular-GDE.JPG)
 
 Angular has openned Angular Collaborators program to contribute Angular Github Repo.
