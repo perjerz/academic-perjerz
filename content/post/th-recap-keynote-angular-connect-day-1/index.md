@@ -1,5 +1,5 @@
 ---
-title: Recap Keynote Angular Connect Day 1
+title: Recap Keynote Angular Connect Day 1 (Thai)
 date: 2019-09-20
 lastmod: 2019-09-22
 image:

@@ -1,7 +1,7 @@
 ---
-title: Recap Keynote Angular Connect Day 1
-date: 2019-09-20
-lastmod: 2019-09-22
+title: Recap Keynote Angular Connect Day 1 (English)
+date: 2019-11-12
+lastmod: 2019-11-14
 image:
   placement: 3
   caption: 'Image credit: [**@ankitsharma_007**](https://twitter.com/ankitsharma_007/status/1174607831263252480)'
