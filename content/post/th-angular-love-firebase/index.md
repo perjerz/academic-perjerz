@@ -126,7 +126,7 @@ firebase logout
 เรามาลอง deploy project ขึ้น Firebase Hosting ด้วยคำสั่ง
 
 ```bash
-# ng run ชื่อโปรเจค:deploy
+# ng run ชื่อโปรเจค:deploy หรือ ng deploy
 ng run firebase-ivy-live-feed:deploy
 ```
 
