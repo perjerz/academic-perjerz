@@ -26,16 +26,16 @@ And now AngularConnect has fifth Anniversary. 🎉🎂 Hooley!
 
 ![Balloon](./balloon-celebrate-3-years.JPG)
 
-There are 7 new Angular conferences has been organized around the world. The my nearest Angular conference is NG-MY (Malaysia). I was a speaker.
+There are 7 new Angular conferences being organized around the world. The my nearest Angular conference is NG-MY (Malaysia 🇲🇾). I was a first time speaker there.  🎤
 
 ![Conferences](./angular-conferences.JPG)
 
-ngGirls is the female Angular Community.
+ngGirls is the female Angular Community. 💃
 You can check the link. [http://ng-girls.org/](http://ng-girls.org/)
 
 ![ngGirls](./ng-girls.JPG)
 
-Now, it's a community turn to share the case studies. The first case study was Deutsche Bank.
+Now, it's a community turn to share their case studies. The first case study was Deutsche Bank.
 
 Rene Kriest - Head of Development for Public Websites
 
@@ -47,24 +47,24 @@ It was made by Angular with CLI, Schematics to scaffold files, Workspace to mana
 
 ![Deutsche Bank](deutsche-bank.JPG)
 
-It's Alianz turn.
+It's time for Alianz.
 
 Jochen Supper 
 
 It was two years now that they create the Alianz UI Library.
 They have learned something from adopting Schematics.
 
-1. Steep Learning Curve
-To adopt ng update command with library, they need to understand Abstract Syntax Tree (AST)
+1. Steep Learning Curve - To adopt ng update command with library, they need to understand Abstract Syntax Tree (AST)
 2. Even though they have Schematics for ng update, some teams still did update manually. Therefore, they need to notify and teach about ng update.
 3. For teams that using ng update command, they are happy.
 
 ![Alianz Case 1](./alianz.JPG)
 
-Next story is about two different text input with two use cases.
-1. Text Input for B2C Customer with Float Label Animation (Left)
+Next story is about two different text inputs with two use cases.
 
-2. Text Input for Employee, Staffs (Expert) without Animation (Right)
+1. Text Input for B2C customers with float label animation (left)
+
+2. Text Input for employees, staffs (experts) without animation (Right)
 
 It use different markups, so they have to write different conventions in documents.
 
@@ -79,13 +79,15 @@ The solution is to let the team that is responsible for making employee apps imp
 
 ![Injection Token](./alianz-injection-token.JPG)
 
-To summarize, Alianz has been transforme
+To summarize, Alianz has been transformed from
+
 - Manual Update to Automate with Schematics (ng update, ng add)
 - Configure by Convention to Configure by Code
 
 ![Alianz Summary](./alianz-summary.JPG)
 
 NativeScript (Building Cross-platform mobile app with Native UI)
+
 by Stanimira Vlaeva
 
 Recently, there was NativeScript Hackathon making app for NGO.
@@ -96,9 +98,17 @@ Recently, there was NativeScript Hackathon making app for NGO.
 Ionic (Bulding Cross-platfor App with WebView)
 Mike Harington
 
-Long time ago Ionic team has create their own tools (CLI), Router, and best practices.
-However, they have realized it was the heavy investment. Until Ionic 4 released, they have used Angular ways.
-For example, they use @angular/cli, @angular/router instead of @ionic/app-scripts, Ionic Router. They also follow Angular Best Practices. In addition, they have extended Angular such as extending Angular Router to be IonRouterOutlet with page transition animation, extend Angular CLI for provide additional information to build iOS & Android, and extending schematics to overrdie default command - ng generate page.
+Long time ago, Ionic team has create their own tools (CLI), Router, and best practices.
+
+However, they have realized it was the too much investment. Until Ionic 4 released, they have used Angular ways.
+
+For example, they use @angular/cli, @angular/router instead of @ionic/app-scripts, Ionic Router. 
+
+They also follow Angular Best Practices. In addition, they have extended Angular such as 
+
+1. Extending Angular Router to be IonRouterOutlet with page transition animation
+2. Extend Angular CLI for provide additional information to build iOS & Android
+3. Extending schematics to overrdie default command - ng generate page
 
 ![Ionic](./ionic.JPG)
 
@@ -108,7 +118,7 @@ Capacitor - New Cordova
 Angular has announced Angular for Designer tool - UI Bakery. [https://uibakery.io/](https://uibakery.io/)
 ![UI Bakery](./ui-bakery.JPG)
 
-Last year, There were 600+ Angular projects in Google.
+Last year, there were 600+ Angular projects in Google.
 
 Now, there are 1500+ Angular projects.
 
@@ -118,30 +128,40 @@ Firebase and Google Cloud Platform also use Angular.
 There are 105 Angular GDEs around the world.
 ![Angular GDE](./Angular-GDE.JPG)
 
-Angular has openned Angular Collaborators program to contribute Angular Github Repo.
-Jia Li maintains zone.js และ Joost maintains compiler, ngcc Thanks to all collaborators. 🙏
+Angular has opened Angular Collaborators program.
+
+- Jia Li maintains zone.js 
+- Joost maintains compiler ngcc
+- and so many cool collaborators
+
+Thanks to all collaborators. 🙏
 ![Collaborators](./collaborators.JPG)
 
 Next stories will be technical updates from Igor Minar.
 
 The major release cycle of Angular is every 6 months.
-Last majaor release was on May for version 8. The upcomming release is in November for version 9.
+Last majaor release was on May for version 8. 
+
+The upcomming release is in November for version 9.
 ![Release Cycle](./release-cycle.JPG)
 
 Let's talk about new feature so far.
 
-Differential Loading is building apps with two bundels - for modern browsers with less polyfills and legacy browsers with several polyfills.
+Differential Loading is building apps with two bundles.
+
+- Modern browsers with less polyfills
+- Legacy browsers with several polyfills.
 
 ![Differential Loading](./differential-loading.JPG)
 
 With differential loading, angular.io size has been decreased 41 Kb (10%)
 
-For most of the webs with Angular 8, It has been decreased for 7 - 20%.
+For most of the webs with Angular 8, the size has been decreased for 7 - 20%.
 
 ![Differential Loading Save](./differential-loading-save.JPG)
 
+Building two times is slow, therefore, in CLI 8.3, CLI builds once but using downlevel instead. We get 45% faster.
 
-ประเด็นมันมีอยู่ว่าสมัยก่อนมัน Build 2 รอบสำหรับ Browser รุ่นใหม่ และรุ่นโบราณ ทำให้ Build ช้า (รูปแรก) แต่ได้แก้เป็นการ Downlevel แทนทำให้ Build เร็วขึ้น 45% (รูปที่สอง)
 ![Differential Loading Build 2 Times](./differential-loading-build-2-times.JPG)
 ![Differential Loading Build 2 Times](./differential-loading-build-1-time.JPG)
 
@@ -149,12 +169,12 @@ ng deploy is to deploy Angular app to various hosts such as Firebase, Azure, Net
 
 ![ng deploy](./ng-deploy.JPG)
 
-The Angular hello world app by ng new has been redesigned. It looks cool!
+The Angular hello world app by ng new has been redesigned. It looks cool! 😎
 ![ng new](./ng-new.JPG)
 
 There are more features in Angular 8.
 
-- Lazy loading with import() syntax following standard
+- Lazy loading with import() syntax to following web standard
 - Custom Builders for customize build steps
 - Web Worker Bundling
 - AngularJS $location support to do hybrid AngularJS and Angular with same router
@@ -163,25 +183,23 @@ There are more features in Angular 8.
 
 ![8.x Features](./8-features.JPG)
 
-Ivy makes debugging easier by using Console Tabs in Chrome Dev Tools with ng.getComponent($0) command to access Component directly and call methods during runtime. Awesome 👍👍
+Ivy makes debugging easier by using Console Tab in Chrome Dev Tools with `ng.getComponent($0)` command to access Component directly and call methods during runtime. Awesome 👍👍
 
 ![Ivy Debugging](./ivy-debugging.JPG)
 
-With Angular v9.0.0-next.6, The small, medium, large app sizes are decreased 30%, 10%, 40% respectively.
+With Angular v9.0.0-next.6, the small, medium, large app sizes are  -30%, +10%, -40% respectively.
 
 ![Ivy Size](./ivy-size.JPG)
 
 Ivy runtime uses the Assembly concept that has instruction sets.
 
-There are many ivy Instructions.
+There are many Ivy Instructions. e.g.
 
-- Ivy Instruction opening and ending tag - elementStart, elementEn
+- Ivy Instruction opening and ending tag - elementStart, elementEnd
 - Ivy Instruction adds hello text into tag - text
 - Ivy Instruction for text interpolotion {{name}} - textInterpolate
 
-and so on.
-
-Each feature and each instruction that we use ar e included in runtime. If not, it will be not included.
+Each feature and each instruction that we use are included in runtime. If not, it will be not included.
 ![Ivy Instructions Basic](./ivy-instructions-basic.JPG)
 
 View Enginer or Render v2 uses data structures converting during runtime, so the runtime needs all features, and impossible to tree shake those features that we don't use it.
@@ -200,8 +218,8 @@ Ivy will be default in Angular Version 9
 
 The majority of libraries in npm ecosystem are compiled to support View Engine.
 
-Ivy has ngcc (angular compatibility compiler) to convert View Engine libraries to Ivy code.
-[Read more about Compiler Spec](https://github.com/angular/angular/blob/master/packages/compiler/design/architecture.md#ngcc-operation)
+Ivy has ngcc (Angular Compatibility Compiler) to convert View Engine libraries to Ivy code.
+[Read more about ngcc spec](https://github.com/angular/angular/blob/master/packages/compiler/design/architecture.md#ngcc-operation)
 
 ![ngcc](./ngcc.JPG)
 
@@ -212,7 +230,7 @@ For View Engine libraries, they need to be recompiled with ngcc.
 
 In version 9, building apps are Ivy by default but building libraries are still View Engine.
 
-In Version 10, the instruction Sets tend to be stable.
+In Version 10, the instruction sets tend to be stable.
 Building libraries will be Ivy to use ngcc less.
 
 In Version 11 ngcc will be just a backup for legacy libraries that still use View Engine.
@@ -232,9 +250,9 @@ If you want to try Ivy, use this command.
 
 Ivy has enabled a lot of new features.
 
-Style Merging [https://github.com/matsko/ivy-styling-demo](https://github.com/matsko/ivy-styling-demo)
+- Style Merging [https://github.com/matsko/ivy-styling-demo](https://github.com/matsko/ivy-styling-demo)
 
-Component Lazy Loading [https://github.com/IgorMinar/ivy-lazy-load-component](https://github.com/IgorMinar/ivy-lazy-load-component) leading to Progressive Rehydration
+- Component Lazy Loading [https://github.com/IgorMinar/ivy-lazy-load-component](https://github.com/IgorMinar/ivy-lazy-load-component) leading to Progressive Rehydration
 
 Learn more about Progressive Rehydration by Youtube below.
 
@@ -252,6 +270,6 @@ End. What do you think about new updates from Angular?
 
 Please share this blog for other Angular members.
 
-See you next article. Bye.
+See you next article. Bye. 👋
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This article uses<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.
