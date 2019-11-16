@@ -30,7 +30,7 @@ npm install -g @angular/cli@next
 สร้างโปรเจคด้วย ng new ไม่ใส่ Route เลือก style เป็น scss
 
 ```
-ng new firebase ivy live-feed --routing=false --style=scss
+ng new firebase-ivy-live-feed --routing=false --style=scss
 ```
 
 ![Angular New Project](./ng-new.jpg)
