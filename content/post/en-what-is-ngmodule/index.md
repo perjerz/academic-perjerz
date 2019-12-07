@@ -1,7 +1,7 @@
 ---
 title: What is NgModule?
-date: 2019-09-12
-lastmod: 2019-09-13
+date: 2019-12-07
+lastmod: 2019-12-08
 diagram: true
 image:
   placement: 3
