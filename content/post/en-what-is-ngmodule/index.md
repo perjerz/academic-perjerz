@@ -1,5 +1,5 @@
 ---
-title: What is NgModule?
+title: What is NgModule? (English)
 date: 2019-12-07
 lastmod: 2019-12-08
 diagram: true
