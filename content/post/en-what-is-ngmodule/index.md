@@ -630,13 +630,13 @@ Before ending this blog, I have a quiz ⚡ for you.
 
 Angular App 🅰️ has been splited into feature modules already.
 
-CEO 😎 want Angular App's telephone's input 📞 to have mask from 0999999999 to 099-999-999 **เหมือนกันทุกช่อง input ใน App**
+CEO 😎 want Angular App's telephone's input 📞 to have mask from 0999999999 to 099-999-999 **For every telephone's input in the App**
 
-พวกเราเหล่า Developers 👨💻 จึง Search หา Library ใน Google แล้วพบตัวนึงที่มีชื่อว่า [ngx-mask](https://github.com/JsDaddy/ngx-mask)
+We 👨💻 then search for the libraries in Google, and we found [ngx-mask](https://github.com/JsDaddy/ngx-mask).
 
-โอเคเรา `npm install --save ngx-mask` เรียบร้อย
+We have already installed `npm install --save ngx-mask`.
 
-ใน ngx-mask github ได้แนะนำวิธีการ import Module ไว้ด้านล่าง
+In ngx-mask github have installation guide by import Module like below.
 
 ```typescript
 import { NgxMaskModule } from 'ngx-mask'
@@ -652,16 +652,16 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>);
 })
 ```
 
-คำถามคือเราจะต้อง import `NgxMaskModule` ยังไงและที่ไหนบ้าง?
+My question is where should import `NgxMaskModule`, and how?
 
-1. import NgxMaskModule.forRoot(options) ที่ AppModule ที่เดียวจบใช้ได้ทั้ง App
-2. import NgxMaskModule.forRoot(options) ที่ AppModule และ ทุก Feature Module ที่เราแบ่งไว้
-3. import NgxMaskModule.forRoot(options) ที่ AppModule และ import NgxMaskModule ทุก Feature Module
-4. import NgxMaskModule ที่ AppModule และ ทุก Featured Module
-5. import NgxMaskModule ที่ AppModule และ import NgxMaskModule.forRoot(options) ทุก Feature Module
-6. import NgxMaskModule ที่ AppModule ที่เดียวจบใช้ได้ทั้ง App
+1. import NgxMaskModule.forRoot(options) at AppModule
+2. import NgxMaskModule.forRoot(options) at AppModule and all Feature Module
+3. import NgxMaskModule.forRoot(options) at AppModule and import NgxMaskModule at Feature Module
+4. import NgxMaskModule at AppModule and all Featured Module
+5. import NgxMaskModule at AppModule and import NgxMaskModule.forRoot(options) all Feature Module
+6. import NgxMaskModule at AppModule
 
-แล้วถึงสามารถใช้โค๊ดด้านล่างได้
+And we will be able to use below codes.
 
 ```html
 <input type="text" mask="000-000-000">
@@ -671,10 +671,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>);
 <span>{{phone | mask: '000-000-0000'}}</span>
 ```
 
-แล้วจะมาเฉลยในบทความต่อไปของ NgModule 😈
-
 Please share 🔗 this blog for other Angular members.
 
-See you next article 👋 . Bye. 🙏
+See you next article 👋. Bye. 🙏
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This article uses<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"> Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.
