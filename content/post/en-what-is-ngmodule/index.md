@@ -11,11 +11,11 @@ highlight: true
 highlight_languages: ["typescript"]  # Add support for highlighting additional languages
 ---
 
-## What's NgModule
+## What is NgModule?
 
 Welcome to Angular Fundamental Series 📚
 
-The story behind this blog is that I saw the Chrome Dev Tools 🛠️error in my coworker screen. The error is
+The story behind this blog is that I saw the Chrome Dev Tools 🛠️error in my coworker's screen. The error is
 
 ```typescript
 Error: Template parse errors:
@@ -24,7 +24,7 @@ Error: Template parse errors:
 2. If 'mat-tab' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
 ```
 
-Did you forget to import MatTableModule into the feature module that you are developing?
+"Did you forget to import MatTableModule into the feature module that you are developing?"
 I said.
 
 After she checked, and she found that she didn't import it. She then fixed it, and it works fine.
@@ -32,7 +32,7 @@ After she checked, and she found that she didn't import it. She then fixed it, a
 I keep this problem in my mind, and ask to my ex-coworker who often use Angular.
 "Do you really understand what **NgModule** is?"
 
-He replyed "I don't really understand what **NgModule** is. I just know how to make it work." 😱
+He replied "I don't really understand what **NgModule** is. I just know how to make it work." 😱
 
 Thus, I started this blog to clarify **NgModule**.
 
@@ -100,9 +100,9 @@ However, the order will be exports, imports, and declarations respectively.
 </br></br>
 **exports**
 
-Define Components, Directives, Pipes to be exported in scope that import this module.
+Define Components, Directives, Pipes to be exported. After other modules import this module, it will understand this compilation scope.
 
-For example, ModuleA import ModuleB, then everything being exported in ModuleB will be in scope of compilation of ModuleA
+For example, ModuleA import ModuleB, then everything being exported in ModuleB will be in compilation scope of ModuleA
 
 Therefore, ModuleA can used exported Components, Directives, and Pipes in ModuleB.
 
@@ -172,14 +172,20 @@ Providers registered in that Module can be used also at Run-time (Dependency Inj
     MatProgressSpinnerModule,
     // XXXModule
   ],
+  declarations: [
+    CompanyCardComponent, // <-- Here
+    ...
+  ],
   ...
 })
 export class CompanyModule { }
 ```
 
-From above example.
-**CompanyCardComponent** (company-card.component.html) uses `<mat-card></mat-card>`
-and Directive fxLayoutAlign `<div fxLayoutAlign="center center">`
+[CompanyModule's full code](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/company/company.module.ts#L24)
+
+
+From above example, **CompanyCardComponent** (company-card.component.html) uses MatCard Component `<mat-card></mat-card>`
+and Directive fxLayoutAlign`<div fxLayoutAlign="center center">`
 
 ```html
 <mat-card fxLayout="column" *ngIf="company">
@@ -198,14 +204,16 @@ In **MatCardModule** and **FxLayoutModule** have already exported it.
 Thus, we just imports **MatCardModule** and **FlexLayoutModule** to use it.
 
 How's about **CommonModule**? What does it actually do?
+
 **CommonModule** is important.
+
 **CommonModule** exports `*ngIf, *ngFor, [ngClass], AsyncPipe (| async), CurrencyPipe (| currency)` that why we can use all of it.
 
 [Read more about CommonModule](https://angular.io/api/common/CommonModule)
 
-Other components such as **MatButton, BrowserAnimationsModule, MatIcon, MatProgressBar** has the same concept.
+Other components such as **MatButton, BrowserAnimationsModule, MatIcon, MatProgressBar** have the same concept.
 
-In order to use Angular form, **FormsModule**, or **ReactiveFormsModule** has to be imported also.
+In order to use Angular form, **FormsModule** or **ReactiveFormsModule** has to be imported also.
 ![Import CompanyModule](./imports-company-module.png)
 
 </br></br></br>
@@ -229,7 +237,7 @@ export class CompanyModule { }
 
 From the above example,
 
-Component (**CompanyCardComponent, CompanyListComponent**) and Pipes (**TechToIconPipe**) 
+Components (**CompanyCardComponent, CompanyListComponent**) and Pipes (**TechToIconPipe**)
 know each other because they are in the same compilation scope. Hence, they can use the others interchangably.
 
 **CompanyCardComponent** uses **TechToIconPipe** in the template.
@@ -257,7 +265,7 @@ know each other because they are in the same compilation scope. Hence, they can 
 </br></br></br>
 **providers**
 
-After Angular Version 6.0, we can create Singleton Service by defining `providedIn: 'root'` in metadata of `@Injectable()` to tell Angular registering Service into Application Root. This process make compiler be able to Tree-shaking unused services.
+After Angular Version 6.0, we can create Singleton Service by defining `providedIn: 'root'` in metadata of `@Injectable()` to tell Angular register Service into Application Root. This process make compiler be able to Tree-shaking unused services.
 
 ```typescript
 @Injectable({
@@ -350,7 +358,7 @@ export class AppModule { }
 
 Yes, it was used to configure. ✅ We can configure value in tokens and services to use Dependency Injection in component. Component will be able to use that values.
 
-Let's see the example via Setup AngularFire. Angular 🅰️ App want to talk to Firebase 🔥 Therefore, we have to configure where is the our Firebase.
+Let's see the example via Setup AngularFire. Angular 🅰️ App want to talk to Firebase 🔥. Therefore, we have to configure where is the our Firebase.
 
 The code below is AngularFireModule code from @angular/fire. It passes parameters to config providers - FirebaseOptionsToken and FirebaseNameOrConfigToken.
 
@@ -407,11 +415,11 @@ In addition, newcomers are able to read configuration at the module easily.
 </br></br></br>
 **entryComponents**
 
-Define components to tell Angular Compiler that we are going to use these components explicitly for creating component factories, dynamic loading at Run-time (imperatively). Please don't tree Shake these components out.
+Define components to tell Angular Compiler that we are going to use these components explicitly for creating component factories, dynamic loading at Run-time (Imperatively). Please don't tree Shake these components out.
 
 For components that we use in the template `<angular-th-company-card></angular-th-company-card>`, Angular compiler understand how it be used because of referenceing. Angular compiler is then able to inline instantiation. (Statically, Declaratively)
 
-However [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component in Runtime) needs entryComponents.
+However [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component at Runtime) needs entryComponents.
 
 The clear example is [MatDialog](https://material.angular.io/components/dialog/overview#configuring-dialog-content-via-code-entrycomponents-code-) (Material Dialog). We have to explicitly define MatDialog component in order to open the dialog.
 
@@ -437,7 +445,7 @@ The clear example is [MatDialog](https://material.angular.io/components/dialog/o
 export class AppModule {}
 ```
 
-Another example is loading Component in Routes (RouterModule). It uses component factory also because of dynamic loading at runtime. However, we don't have to define components in entryComponents becuase RouterModule do it for us during compilation.
+Another example is loading Component in Routes (RouterModule). It uses component factory also because of dynamic loading at runtime. However, we don't have to define components in entryComponents because RouterModule do it for us during compilation.
 
 ```typescript
 const routes: Routes = [
@@ -460,13 +468,16 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-**However, we don't need entryComponents anymore in Ivy. Check below link**
+## However, we don't need entryComponents anymore in Ivy. Check below link
 
 [refactor(core): deprecate entryComponents #33205](https://github.com/angular/angular/pull/33205)
 
-The another interesting story is when we declare and export ComponentA, ComponentB, and Component C in ModuleA, then we import ModuleA into AppModule. However, we don't use or reference it in templates or controllers. The Angular Compiler will not include these components in the bundle. For example, we use CustomMatModule that declares and exports MatButton and MatCard. Even though we import this CustomMatModule, we don't need to pay bundle size's cost if we don't reference or use them in the template or controllers.
 
-**However, my best practice is that I do always import what I actually needs. It will be difficult to know what dependencies we are using when project is complicated.**
+The another interesting story is when we declare and export ComponentA, ComponentB, and Component C in ModuleA, then we import ModuleA into AppModule. However, we don't use ComponentA, ComponentB, ComponentC in templates or controllers. The Angular Compiler will not include these components in the bundle. 
+
+For example, we use CustomMatModule that declares and exports MatButton and MatCard. Even though we import this CustomMatModule, we don't need to pay bundle size's cost if we don't reference or use them in the template or controllers.
+
+## However, my best practice is that I do always import what I actually needs. It will be difficult to know what dependencies we are using when project is complicated if we import all modules.
 
 ```typescript
 @NgModule({
@@ -510,11 +521,11 @@ Define Schema to allow compilation scope in NgModule. There are two values - [NO
 
 **NO_ERRORS_SCHEMA - Tell Angular Compiler to allow all elements and properties**
 
-For [Shallow Testing](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d) we want to test Angular Template by ignoring dependencies of components (Don't care template errors about what dependencies they need)
+For [Shallow Testing](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d), we want to test Angular Template by ignoring dependencies of components (Don't care template errors about what dependencies they need)
 
 We can configure module to make Angular components behaving as simple DOMs.
 
-The below example is that the component - ConversationsCmp to be shallow testing.
+The below example is to prepare ConversationsCmp for shallow testing.
 We just want to test that it renders texts correctly. However, the parent of texts is  `<mat-card></mat-card>` or MatCardComponent. We don't really care it. We just want to check there is right text inside.
 
 When we create TestBed, we have to configure the module with schemas `NO_ERRORS_SCHEMA` to ignore the error from not importing `MatCardModule`. Angular Compiler will be clear about the scope of `MatCardComponent` and the test is passed.
@@ -565,7 +576,7 @@ describe('ConversationsCmp', () => {
       providers: [
         { provide: ActivatedRoute, useValue: {params, data} }
       ],
-      // Tells the compiler not to error on unknown elements and attributes
+      // Tell compiler to not show error for unknown elements and attributes
       schemas: [NO_ERRORS_SCHEMA]
     });
     TestBed.compileComponents();
@@ -595,6 +606,8 @@ describe('ConversationsCmp', () => {
   });
 });
 ```
+
+
 
 **CUSTOM_ELEMENTS_SCHEMA - Tell Angular Compiler to allow Non-Angular elements and properties with dash case. Dash case is convention of custom elements**
 
@@ -629,13 +642,13 @@ Before ending this blog, I have a quiz ⚡ for you.
 
 Angular App 🅰️ has been splited into feature modules already.
 
-CEO 😎 want Angular App's telephone's input 📞 to have mask from 0999999999 to 099-999-999 **For every telephone's input in the App**
+CEO 😎 want telephone's input 📞 in Angular App to be masked from 0999999999 to 099-999-999 **For every telephone's input in the App**
 
-We 👨💻 then search for the libraries in Google, and we found [ngx-mask](https://github.com/JsDaddy/ngx-mask).
+We then search for the libraries in Google, and we found [ngx-mask](https://github.com/JsDaddy/ngx-mask). 👨💻
 
 We have already installed `npm install --save ngx-mask`.
 
-In ngx-mask github have installation guide by import Module like below.
+ngx-mask Github has installation guide by importing Module like below.
 
 ```typescript
 import { NgxMaskModule } from 'ngx-mask'
@@ -660,7 +673,7 @@ My question is where should import `NgxMaskModule`, and how?
 5. import NgxMaskModule at AppModule and import NgxMaskModule.forRoot(options) all Feature Module
 6. import NgxMaskModule at AppModule
 
-And we will be able to use below codes.
+And developers will be able to use below codes without error.
 
 ```html
 <input type="text" mask="000-000-000">
