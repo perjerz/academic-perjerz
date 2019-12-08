@@ -5,7 +5,7 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 10  # Order that this section will appear.
 
-title = "Hire me!"
+title = "Consulting"
 
 # Hero image (optional). Enter filename of an image in the `static/img/` folder.
 hero_media = "icon-192.png"
@@ -35,15 +35,14 @@ hero_media = "icon-192.png"
 #   Remove a link/note by deleting a cta/note block.
 [cta]
   url = "#contact"
-  label = "Hire me!"
+  label = "Contact me!"
   icon_pack = "fas"
   icon = "handshake"
 
 # Note. An optional note to show underneath the links.
 [cta_note]
-  label = 'Open for Remote or Freelance Man-hour Project and Mentoring'
+  label = 'Open for Remote or Freelance Man-hour Projects'
 +++
 
-**The Best Balance Between Clean Code and Answered Business Needs Software**
+**Free Angular consulting, mentoring, and training for startups.**
 
-Build **Everything** with the lowest technical debt

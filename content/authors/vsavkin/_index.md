@@ -58,6 +58,7 @@ email: ""
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.  
 user_groups:
+- Following
 - Tech Idol
 ---
 <!-- Co-founder of Narwhal Technologies (nrwl.io), where we build open-source dev tools for monorepos and help companies develop like Google, Facebook, and Microsoft -->

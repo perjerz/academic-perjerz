@@ -58,6 +58,7 @@ email: ""
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.  
 user_groups:
+- Following
 - Tech Idol
 ---
 <!-- Erik Meijer (born 18 April 1963, Curaçao) is a Dutch computer scientist, entrepreneur, and tie-dye enthusiast[1]. From 2000 to early 2013 he was a software architect for Microsoft where he headed the Cloud Programmability Team.[2] He then founded Applied Duality Inc.[3] in 2013. Before that, he was an associate professor at Utrecht University. Since 2015 he has been a Director of Engineering at Facebook. He received his Ph.D. from Nijmegen University in 1992.

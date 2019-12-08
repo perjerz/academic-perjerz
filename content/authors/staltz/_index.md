@@ -58,6 +58,7 @@ email: ""
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.  
 user_groups:
+- Following
 - Tech Idol
 ---
 <!-- Hi, I come from Brazil, but never felt like a true Brazilian. Now, I live in Finland, where it's nice and cold. The Finnish culture also matches my personality well.

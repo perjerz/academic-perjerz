@@ -4,8 +4,8 @@
 #   The weight parameter defines the order that the links will appear in.
 
 [[main]]
-  name = "Hire me"
-  url = "#hire-me"
+  name = "Consulting"
+  url = "#consulting"
   weight = 5
 
 [[main]]
@@ -29,7 +29,7 @@
   weight = 35
 
 [[main]]
-  name = "Idols"
+  name = "Following"
   url = "#people"
   weight = 40
 
