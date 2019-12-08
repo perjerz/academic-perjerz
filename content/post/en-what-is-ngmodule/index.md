@@ -30,8 +30,7 @@ I said.
 After she checked, and she found that she didn't import it. She then fixed it, and it works fine.
 
 I keep this problem in my mind, and ask to my ex-coworker who often use Angular.
-หลังจากนั้นผมเก็บความผิดพลาดนี้ไว้ แล้วจึงไปถามรุ่นพี่ใช้ Angular อยู่เป็นประจำว่า 
-"Do you really understand what **NgModule** is"
+"Do you really understand what **NgModule** is?"
 
 He replyed "I don't really understand what **NgModule** is. I just know how to make it work." 😱
 
