@@ -461,13 +461,13 @@ export class AppRoutingModule {}
 ```typescript
 @NgModule({
   imports: [
-    MatToolbarModule,
-    MatMenuModule,
+    MatButtonModule,
+    MatCardModule,
     ...
   ],
   exports: [
-    MatToolbarModule,
-    MatMenuModule,
+    MatButtonModule,
+    MatCardModule,
     ...
   ], // ถึงแม้จะ export ออกไป ถ้าไม่ได้ใช้ก็ไม่ต้องจ่าย Bundle Size
   declarations: []
@@ -586,7 +586,7 @@ describe('ConversationsCmp', () => {
 
 **CUSTOM_ELEMENTS_SCHEMA - บอก Angular Compiler ว่าอนุญาต Non-Angular Elements และ Properties ด้วย Dash Case ซึ่ง Dash Case เป็น Convention ของ Custom Elements**
 
-โดยปกติแล้ว Angular จะเข้าใจว่า Custom HTML Tag เป็น Angular Component หมดเวลาเจออะไรแปลกๆไม่รู้จักใน Scope ก็เด้ง error ในกรณีที่เราต้องการใช้ Custom Element เลยต้องบอกว่า Angular Compiler เราจะใช้ Custom Element นะไม่ต้อง งง จากนั้นมันจะ Compile ผ่าน
+โดยปกติแล้ว Angular จะเข้าใจว่า Custom HTML Tag เป็น Angular Component พเวลาเจออะไรแปลกๆไม่รู้จักใน Scope ก็เด้ง error ในกรณีที่เราต้องการใช้ Custom Element เลยต้องบอกว่า Angular Compiler เราจะใช้ Custom Element นะไม่ต้อง งง จากนั้นมันจะ Compile ผ่าน
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';

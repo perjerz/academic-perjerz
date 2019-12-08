@@ -63,9 +63,9 @@ export class AppModule {}
 What does **NgModule** do?
 NgModule receives metadata for
 
-1. Tell Angular Compiler how to compile Components, Templates, Directives, Pipes
+1. Tell Angular Compiler how to compile Components, Templates, Directives, Pipes.
 2. Define Components, Directives, Pipes to be public via metadata that is **exports** in order to let other modules access and exploit it.
-3. Add Services or Providers for Dependency Injection in Component
+3. Add Services or Providers for Dependency Injection in Component.
 
 Let's see case 1,2 via the below example.
 
@@ -233,7 +233,7 @@ From the above example,
 Component (**CompanyCardComponent, CompanyListComponent**) and Pipes (**TechToIconPipe**) 
 know each other because they are in the same compilation scope. Hence, they can use the others interchangably.
 
-**CompanyCardComponent** uses **TechToIconPipe** in Template
+**CompanyCardComponent** uses **TechToIconPipe** in the template.
 
 ```html
 ...
@@ -243,7 +243,7 @@ know each other because they are in the same compilation scope. Hence, they can 
 
 [company-card.component.html's full code](https://github.com/AngularThailand/who-use-angular-in-thailand/blob/master/apps/who-use-angular-in-thailand/src/app/company/company-card/company-card.component.html#L24)
 
-**CompanyListComponent** loops to create `<angular-th-company-card></angular-th-company-card>` via `*ngFor` in Template.
+**CompanyListComponent** loops to create `<angular-th-company-card></angular-th-company-card>` via `*ngFor` in the template.
 
 ```html
 ...
@@ -403,19 +403,18 @@ export class AppGuard implements CanActivate {
 
 In addition, newcomers are able to read configuration at the module easily.
 
-
-[อ่านเรื่อง Dependency Injection ได้ที่ DevNote](https://medium.com/devnote/%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%81%E0%B8%B1%E0%B8%9A-dependency-injection-%E0%B9%83%E0%B8%99-angular-880cbf483239)
+[Read more about Dependency Injection at angular.io](https://angular.io/guide/dependency-injection)
 
 </br></br></br>
 **entryComponents**
 
-ไว้ระบุ Component ที่จะต้อง Compile บอก Angular Compiler ว่าเราจะใช้ Component เหล่านี้แน่ๆ สร้าง Component Factory ทำ Dynamic Load ณ Run-time (Imperatively) ไม่ต้อง Tree Shake ลบ Component นี้ออกไป
+Define components to tell Angular Compiler that we are going to use these components explicitly for creating component factories, dynamic loading at Run-time (imperatively). Please don't tree Shake these components out.
 
-โดยปกติแล้ว Component ที่เราใช้ใน Template `<angular-th-company-card></angular-th-company-card>` Compiler มันรู้ได้เลยจากการใช้ (Reference) จึงสามารถ Inline Instantiation ได้ (Statically, Declaratively)
+For components that we use in the template `<angular-th-company-card></angular-th-company-card>`, Angular compiler understand how it be used because of referenceing. Angular compiler is then able to inline instantiation. (Statically, Declaratively)
 
-แต่กลับกันในกรณีการทำ [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component ตอน Runtime) ซึ่งต้องใช้ entryComponents
+However [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) (Load Component in Runtime) needs entryComponents.
 
-ตัวอย่างที่ชัดเจนเลยคือ [MatDialog](https://material.angular.io/components/dialog/overview#configuring-dialog-content-via-code-entrycomponents-code-) (Material Dialog) ที่เราต้องระบุ Component ที่เราสร้างไว้สำหรับเปิด Dialog ขึ้นมา
+The clear example is [MatDialog](https://material.angular.io/components/dialog/overview#configuring-dialog-content-via-code-entrycomponents-code-) (Material Dialog). We have to explicitly define MatDialog component in order to open the dialog.
 
 ```typescript
 @NgModule({
@@ -439,7 +438,7 @@ In addition, newcomers are able to read configuration at the module easily.
 export class AppModule {}
 ```
 
-อีกกรณีหนึ่งคือการ Load Component ใน Routes (RouterModule) นั้นใช้ Component Factory เหมือนกันเพราะมัน Dynamic Load ณ Runtime เพียงแต่ว่าเราไม่ต้องระบุ Component ใน entryComponents เองเพราะ RouterModule แอบเพิ่มให้เองตอน Compile
+Another example is loading Component in Routes (RouterModule). It uses component factory also because of dynamic loading at runtime. However, we don't have to define components in entryComponents becuase RouterModule do it for us during compilation.
 
 ```typescript
 const routes: Routes = [
@@ -462,20 +461,26 @@ const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-มีอีกเรื่องหนึ่งที่น่าสนใจคือการที่ เราประกาศ Declarations และ Exports ComponentA, ComponentB, ComponentC ที่ ModuleA แล้วเรา Import ModuleA ใน AppModule แต่ปรากฏว่าใน Template เราไม่ได้มีการใช้ (Reference) สิ่งเหล่านั้น Angular Compiler จะถือว่าเราไม่ได้ใช้ จึงไม่รวมเข้าไปใน Bundle เพื่อทำให้มันเล็กลง ยกตัวอย่างเช่นกรณีของ Custom MatModule (Material Design Module) ที่ declarations และ exports ทุกอย่าง ถึงเราจะ import MatButtonModule, MatCardModule เข้าแต่เราไม่ได้ใช้ ใน Template ก็ไม่ต้องจ่าย Cost ของขนาด Bundle ที่ใหญ่ขึ้น
+**However, we don't need entryComponents anymore in Ivy. Check below link**
+
+[refactor(core): deprecate entryComponents #33205](https://github.com/angular/angular/pull/33205)
+
+The another interesting story is when we declare and export ComponentA, ComponentB, and Component C in ModuleA, then we import ModuleA into AppModule. However, we don't use or reference it in templates or controllers. The Angular Compiler will not include these components in the bundle. For example, we use CustomMatModule that declares and exports MatButton and MatCard. Even though we import this CustomMatModule, we don't need to pay bundle size's cost if we don't reference or use them in the template or controllers.
+
+**However, my best practice is that I do always import what I actually needs. It will be difficult to know what dependencies we are using when project is complicated.**
 
 ```typescript
 @NgModule({
   imports: [
-    MatToolbarModule,
-    MatMenuModule,
+    MatButtonModule,
+    MatCardModule,
     ...
   ],
   exports: [
-    MatToolbarModule,
-    MatMenuModule,
+    MatButtonModule,
+    MatCardModule,
     ...
-  ], // ถึงแม้จะ export ออกไป ถ้าไม่ได้ใช้ก็ไม่ต้องจ่าย Bundle Size
+  ], // Even though these are exported, we don't have to pay if we not using it
   declarations: []
 })
 export class CustomMatModule { }
@@ -484,10 +489,10 @@ export class CustomMatModule { }
 </br></br></br>
 **bootstrap**
 
-ระบุ Component ที่เอาไว้สร้างตอนเริ่มรัน App (Bootstrap) โดยปกติคือ Root Component ซึ่งก็คือ AppComponent
-Bootstrap Component นั้นจะถูกเพิ่มเข้าไปใน entryComponents โดยอัตโนมัติ
+Define Component to start the App (Bootstrap) - Root Component or AppComponent
+Bootstrap Component will be automatically added into entryComponents.
 
-ตัวอย่างที่ชัดเจนเลยคือ AppModule
+Here is the example in AppModule.
 
 ```typescript
 @NgModule({
@@ -502,16 +507,18 @@ export class AppModule {}
 </br></br></br>
 **schemas**
 
-ระบุ Schema ที่อนุญาตให้ใช้ใน Scope ของ NgModule โดยมีสองค่าที่ใช้ได้คือ [NO_ERRORS_SCHEMA](https://github.com/angular/angular/blob/master/packages/core/src/metadata/schema.ts#L38) และ [CUSTOM_ELEMENTS_SCHEMA](https://github.com/angular/angular/blob/master/packages/core/src/metadata/schema.ts#L29)
+Define Schema to allow compilation scope in NgModule. There are two values - [NO_ERRORS_SCHEMA](https://github.com/angular/angular/blob/master/packages/core/src/metadata/schema.ts#L38) and [CUSTOM_ELEMENTS_SCHEMA](https://github.com/angular/angular/blob/master/packages/core/src/metadata/schema.ts#L29).
 
-**NO_ERRORS_SCHEMA - บอก Angular Compiler ว่าอนุญาตทุก Element ทุก Property เป็นอะไรก็ได้**
+**NO_ERRORS_SCHEMA - Tell Angular Compiler to allow all elements and properties**
 
-สำหรับการทำ [Shallow Testing](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d) เราต้องการจะ Test Angular Template โดยละ Dependencies ไว้ในฐานที่เข้าใจ ของ Component (ไม่ต้องสนใจ Template Error ว่า Require อะไร)
-เราสามารถ Configure Module เพื่อบอก Angular Component บางตัวที่เราสร้างให้คิดซะว่าเป็นแค่ DOM ธรรมดา
+For [Shallow Testing](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d) we want to test Angular Template by ignoring dependencies of components (Don't care template errors about what dependencies they need)
 
-ตัวอย่างด้านล่างคือมี Component ชื่อ ConversationsCmp ที่เราต้องการเทสว่า มัน Render ข้อความข้างในถูกต้องซึ่งใน template นั้นใช้ `<mat-card></mat-card>` หรือ MatCardComponent  ซึ่งเราไม่ได้สนใจหน้าตาความสวยงามของมัน เราต้องการเช็คว่ามีข้อความข้างในและถูกต้องไหม
+We can configure module to make Angular components behaving as simple DOMs.
 
-ตอนสร้าง TestBed เลย Configure Module โดยใส่ schemas `NO_ERRORS_SCHEMA` ไม่ต้องฟ้อง Error จากการไม่ import `MatCardModule` ให้ Angular Compiler เข้าใจ Scope ของ `MatCardComponent` ด้วย แล้วก็รันเทสตามปกติ
+The below example is that the component - ConversationsCmp to be shallow testing.
+We just want to test that it renders texts correctly. However, the parent of texts is  `<mat-card></mat-card>` or MatCardComponent. We don't really care it. We just want to check there is right text inside.
+
+When we create TestBed, we have to configure the module with schemas `NO_ERRORS_SCHEMA` to ignore the error from not importing `MatCardModule`. Angular Compiler will be clear about the scope of `MatCardComponent` and the test is passed.
 
 ```html
 <mat-card *ngFor="let c of conversations | async" [routerLink]="[c.id]">
@@ -590,9 +597,9 @@ describe('ConversationsCmp', () => {
 });
 ```
 
-**CUSTOM_ELEMENTS_SCHEMA - บอก Angular Compiler ว่าอนุญาต Non-Angular Elements และ Properties ด้วย Dash Case ซึ่ง Dash Case เป็น Convention ของ Custom Elements**
+**CUSTOM_ELEMENTS_SCHEMA - Tell Angular Compiler to allow Non-Angular elements and properties with dash case. Dash case is convention of custom elements**
 
-โดยปกติแล้ว Angular จะเข้าใจว่า Custom HTML Tag เป็น Angular Component หมดเวลาเจออะไรแปลกๆไม่รู้จักใน Scope ก็เด้ง error ในกรณีที่เราต้องการใช้ Custom Element เลยต้องบอกว่า Angular Compiler เราจะใช้ Custom Element นะไม่ต้อง งง จากนั้นมันจะ Compile ผ่าน
+Angular always understands that Custom HTML Tag is Angular Component. When it encounter weird elements that out of scopes, the compiler then throw the error. To use custom elements, we have to enable Angular Compiler compiler to understand custom elements.
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -603,7 +610,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // <-- บอกตรงนี้,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // <-- Here!
   imports: [BrowserModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent]
@@ -611,19 +618,19 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-[ศึกษาเรื่อง Custom Element ใน Angular ต่อ](https://vaadin.com/tutorials/using-web-components-in-angular)
+[Read more about Custom Element in Angular](https://vaadin.com/tutorials/using-web-components-in-angular)
 
-## สรุป NgModule
+## Summary of NgModule
 
-1. อธิบายวิธีการ Compile Components, Templates, Directives, Pipes ให้กับ Angular Compiler
-2. ระบุ Components, Directives, Pipes ให้เป็นสาธารณะ (Public) ผ่าน metadata ที่มีชื่อว่า **exports** เพื่อให้ Module อื่น ที่ import Module นี้เรียกใช้งานได้
-3. เพิ่ม Services หรือ Providers เพื่อใช้ Dependency Injection ใน Component ได้
+1. Tell Angular Compiler how to compile Components, Templates, Directives, Pipes
+2. Define Components, Directives, Pipes to be public via metadata that is **exports** in order to let other modules access and exploit it.
+3. Add Services or Providers for Dependency Injection in Component.
 
-ก่อนจบบทความนี้ไป ผมมีปริศนาฟ้าแลบ ⚡ ให้ทุกท่านทาย คำถามมีอยู่ว่า
+Before ending this blog, I have a quiz ⚡ for you.
 
-ตอนนี้ Angular App 🅰️ ของเราได้ทำการแบ่ง Feature Module ไว้เรียบร้อยแล้ว
+Angular App 🅰️ has been splited into feature modules already.
 
-CEO 😎 ต้องการให้ Angular App ทำให้ช่องกรอกเบอร์โทรศัพท์ 📞 mask เบอร์จาก 0999999999 เป็น 099-999-999 **เหมือนกันทุกช่อง input ใน App**
+CEO 😎 want Angular App's telephone's input 📞 to have mask from 0999999999 to 099-999-999 **เหมือนกันทุกช่อง input ใน App**
 
 พวกเราเหล่า Developers 👨💻 จึง Search หา Library ใน Google แล้วพบตัวนึงที่มีชื่อว่า [ngx-mask](https://github.com/JsDaddy/ngx-mask)
 
@@ -666,16 +673,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>);
 
 แล้วจะมาเฉลยในบทความต่อไปของ NgModule 😈
 
-จบไปแล้วสำหรับ NgModule เบื้องต้น 🔚 ยังมีอีกหลายเรื่องใน NgModule ที่คุยกันต่อได้เช่น 💬
+Please share 🔗 this blog for other Angular members.
 
-- ลำดับการสร้างตอน Bootstrap App ของ NgModule
-- Feature Module คืออะไรกันนะ? 🤔
-- ประเภทของ Feature Module
-- Lazy-Loading Module คืออะไรกัน ❓
-- NgModule พื้นฐานเช่น RouterModule, HttpClientModule, FormsModule
-
-ฝากแชร์ 🔗 ต่อให้เพื่อนพี่น้อง ชาว Angular ได้อัพเดทกัน
-
-แล้วเจอกันบทความหน้า 👋 สวัสดีครับ 🙏
+See you next article 👋 . Bye. 🙏
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This article uses<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"> Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.
