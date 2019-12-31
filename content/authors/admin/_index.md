@@ -42,7 +42,7 @@ social:
   link: https://twitter.com/perjerz34
 - icon: github
   icon_pack: fab
-  link: https://github.com/perjerz3434
+  link: https://github.com/perjerz
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/siwatkaolueng/

@@ -8,7 +8,7 @@ tags:
 date: "2019-11-03T15:45:46Z"
 
 # Optional external URL for project (replaces project detail page).
-external_link: https://github.com/perjerz3434/firebase-ivy-live-feed
+external_link: https://github.com/perjerz/firebase-ivy-live-feed
 
 image:
   caption: Photo by Siwat
