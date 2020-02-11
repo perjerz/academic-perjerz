@@ -44,5 +44,5 @@ hero_media = "icon-192.png"
   label = 'Open for Remote or Freelance Man-hour Projects'
 +++
 
-**Free Angular consulting, mentoring, and training for startups.**
+**Angular consulting, mentoring, and training for startups and enterprises.**
 
