@@ -1,5 +1,5 @@
 ---
-title: What's new in Angular?
+title: Angular Meetup January 2020
 summary: Organize Angular meetup
 tags:
 - Angular
