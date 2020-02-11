@@ -41,8 +41,8 @@ hero_media = "icon-192.png"
 
 # Note. An optional note to show underneath the links.
 [cta_note]
-  label = 'Open for Remote or Freelance Man-hour Projects'
+  label = ''
 +++
 
-**Angular consulting, mentoring, and training for startups and enterprises.**
+**Angular consulting, mentoring, and training for startups and enterprises**
 
