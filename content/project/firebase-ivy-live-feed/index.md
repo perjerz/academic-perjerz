@@ -1,6 +1,6 @@
 ---
 title: Firebase Ivy Live Feed
-summary: Firebase Dev Day Live Feed building by Angular & Fierebase 
+summary: Firebase Dev Day Live Feed building by Angular & Firebase 
 tags:
 - Angular
 - Firebase
