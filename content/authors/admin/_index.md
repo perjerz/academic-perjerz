@@ -10,12 +10,12 @@ authors:
 superuser: true
 
 # Role/position
-role: Angular Engineer
+role: Angular & Web Engineer
 
 # Organizations/Affiliations
 organizations:
-- name: 7 Peaks Software
-  url: "https://7peakssoftware.com/"
+- name: Freelance
+  url: "https://perjerz.me/#contact"
 
 # Short bio (displayed in user profile at end of posts)
 bio: Angular & Web enthusiast who passionating front-end architecture
@@ -66,6 +66,4 @@ email: ""
 # - Visitors
 ---
 
-Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise softwares such as bank and energy companies. He contribute open source project namely who-use-angular-in-thailand. He is also Angular Thailand speaker and organizer.
-
-He extremely enjoys learning new things. He is now focusing on Cloud Infrastructure (AWS).
+Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise software industries such as bank, telecom and energy. He has maintained Angular Thailand community. He is sometimes Angular meetup speaker and organizer.
