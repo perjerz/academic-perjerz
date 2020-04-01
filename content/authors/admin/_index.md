@@ -25,6 +25,7 @@ interests:
 - Web Technologies
 - Reactive Programming
 - Cloud Architecture
+- Theoretical Computer Science
 
 education:
   courses:
