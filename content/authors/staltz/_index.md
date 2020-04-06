@@ -22,8 +22,8 @@ bio: I'm enthusiastic about reactive programming, functional programming, fronte
 
 interests:
 - Reactive Programming
-- Peer-To-Peer Network
-- React-Native
+- Open Source
+- Decentralized Web
 
 # education:
 #   courses:

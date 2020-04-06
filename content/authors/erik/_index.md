@@ -23,7 +23,7 @@ bio: His work at Microsoft included C#, Visual Basic, LINQ, Volta, and the react
 interests:
 - Functional Programming
 - Reactive Programming
-- Software 2.0
+- Haskell
 
 # education:
 #   courses:

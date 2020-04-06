@@ -22,8 +22,8 @@ bio: Engineer in the Angular team at Google
 
 interests:
 - Angular
-- Computer Science
-- Golang
+- Theoritical Computer Science
+- Compiler
 
 # education:
 #   courses:
