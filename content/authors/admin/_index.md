@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Siwat Kaolueng
+title: Siwat Kaolueng
 
 # Username (this should match the folder name)
 authors:
@@ -62,9 +62,8 @@ email: ""
   
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.  
-# user_groups:
-# - Researchers
-# - Visitors
+user_groups:
+- Admin
 ---
 
 Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise software industries such as bank, telecom and energy. He has maintained Angular Thailand community. He is sometimes Angular meetup speaker and organizer.

@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Minko Gechev
+title: Minko Gechev
 
 # Username (this should match the folder name)
 authors:

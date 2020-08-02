@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Acoshift
+title: Acoshift
 
 # Username (this should match the folder name)
 authors:

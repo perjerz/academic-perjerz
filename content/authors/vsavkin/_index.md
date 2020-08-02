@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Victor Savkin
+title: Victor Savkin
 
 # Username (this should match the folder name)
 authors:
