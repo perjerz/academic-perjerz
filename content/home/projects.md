@@ -5,7 +5,7 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 44  # Order that this section will appear.
 
-title = "Open Source Projects"
+title = "Side Projects"
 subtitle = ""
 
 [content]
