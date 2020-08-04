@@ -5,7 +5,7 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 10  # Order that this section will appear.
 
-title = "Angular & Web Expert"
+title = "Angular & Web Engineer"
 
 # Hero image (optional). Enter filename of an image in the `static/img/` folder.
 hero_media = "icon-192.png"
@@ -44,5 +44,5 @@ hero_media = "icon-192.png"
   label = ''
 +++
 
-**Consulting, mentoring, and training for startups and enterprises**
+**Open for opportunities**
 

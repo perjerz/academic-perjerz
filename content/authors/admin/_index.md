@@ -66,4 +66,4 @@ user_groups:
 - Admin
 ---
 
-Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise software industries such as bank, telecom and energy. He has maintained Angular Thailand community. He is sometimes Angular meetup speaker and organizer.
+Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise software industries such as bank, telecom and energy.
