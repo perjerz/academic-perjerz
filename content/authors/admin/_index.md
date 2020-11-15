@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Angular & Web Engineer
+role: Web & Angular Consultant
 
 # Organizations/Affiliations
 organizations:
@@ -18,7 +18,7 @@ organizations:
   url: "https://perjerz.me/#contact"
 
 # Short bio (displayed in user profile at end of posts)
-bio: Angular & Web enthusiast who passionating front-end architecture
+bio: Web & Angular consultant who passionating front-end architecture
 
 interests:
 - Angular
@@ -26,12 +26,6 @@ interests:
 - Reactive Programming
 - Cloud Architecture
 - Theoretical Computer Science
-
-education:
-  courses:
-  - course: B.Eng in Computer Engineering
-    institution: King Mongkut's University of Technology Thonburi (KMUTT)
-    year: 2016 - 2013
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -66,4 +60,4 @@ user_groups:
 - Admin
 ---
 
-Siwat is the Angular & Web enthusiast who passionating front-end architecture. He has experienced in enterprise software industries such as bank, telecom and energy.
+Siwat is the Web & Angular consultant who passionating front-end architecture. He has experienced in enterprise software industries such as bank, telecom and energy. Angular Thailand meetups have been organized by him for 2 years.

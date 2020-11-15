@@ -18,7 +18,7 @@ organizations:
   url: "https://www.moonrhythm.io/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: Angular & Web enthusiast who passionating front-end architecture
+bio: Web & Angular consultant who passionating front-end architecture
 
 interests:
 - Golang
