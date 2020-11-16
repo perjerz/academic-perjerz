@@ -10,6 +10,6 @@ date: "2019-07-30T18:30:00Z"
 external_link: https://www.facebook.com/events/340697073485865/
 
 image:
-  caption: Photo by 7 Peaks Software
+  caption: Photo by Seven Peaks Software
   focal_point: Smart
 ---

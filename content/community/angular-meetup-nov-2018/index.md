@@ -1,5 +1,5 @@
 ---
-title: Angular Meetup NOV 2018 Hosted By 7 Peaks Software
+title: Angular Meetup NOV 2018 Hosted By Seven Peaks Software
 summary: Organize Angular meetup
 tags:
 - Angular
@@ -10,6 +10,6 @@ date: "2018-11-28T18:00:00Z"
 external_link: https://www.facebook.com/events/536523386844377
 
 image:
-  caption: Photo by 7 Peaks Software
+  caption: Photo by Seven Peaks Software
   focal_point: Smart
 ---
